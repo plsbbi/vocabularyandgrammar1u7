@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tiếng Anh - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8854C0;
+            --accent: #FDCB6E;
+            --teal: #00C9A7;
+            --correct: #00D26A;
+            --wrong: #FF4757;
+            --text: #2D3436;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #E8A7A1, #00C9A7, #FDCB6E);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            position: relative;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Floating SVGs background patterns */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M20 20L30 10L40 20L30 30Z' fill='%23FFF'/%3E%3Ccircle cx='70' cy='30' r='10' fill='%23FFF'/%3E%3Cpath d='M10 70 C 20 60, 40 60, 50 70 C 60 80, 80 80, 90 70' stroke='%23FFF' stroke-width='4' fill='none'/%3E%3Ccircle cx='40' cy='80' r='5' fill='%23FFF'/%3E%3C/svg%3E");
+            animation: floatingPatterns 30s linear infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPatterns {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+        }
+
+        h5.author {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .notice-board {
+            background: #FFEAA7;
+            border: 3px solid #FDCB6E;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 6px 0 #E1B12C;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .notice-title {
+            color: #D63031;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .exercise-title {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 6px 0 #6C42A1;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.08);
+            border: 2px solid #E2E8F0;
+            position: relative;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .question-text u {
+            text-decoration: underline;
+            color: #D63031;
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+        }
+
+        .btn-opt {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 14px 20px;
+            border-radius: 18px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #DFE6E9;
+            text-align: left;
+            position: relative;
+            transform: translateY(0);
+        }
+
+        .btn-opt:hover:not(.disabled) {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 0 #B2BEC3;
+            border-color: #B2BEC3;
+        }
+
+        .btn-opt:active:not(.disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #DFE6E9;
+        }
+
+        .btn-opt.correct {
+            background-color: var(--correct) !important;
+            color: white !important;
+            border-color: #00B359 !important;
+            box-shadow: 0 6px 0 #00994C !important;
+        }
+
+        .btn-opt.wrong {
+            background-color: var(--wrong) !important;
+            color: white !important;
+            border-color: #E03645 !important;
+            box-shadow: 0 6px 0 #C42634 !important;
+        }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .disabled.correct, .disabled.wrong {
+            opacity: 1;
+        }
+
+        /* Gap-fill popup styling */
+        .gap-select {
+            display: inline-block;
+            background: #FFEAA7;
+            border: 2px dashed #FDCB6E;
+            padding: 2px 15px;
+            margin: 0 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 900;
+            color: var(--primary);
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .gap-select.correct {
+            background: var(--correct);
+            color: white;
+            border-style: solid;
+            border-color: #00B359;
+        }
+        
+        .gap-select.wrong {
+            background: var(--wrong);
+            color: white;
+            border-style: solid;
+            border-color: #E03645;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 15px;
+            background: #EBF8FF;
+            border-left: 6px solid #3182CE;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .explanation-box h4 {
+            margin: 0 0 8px 0;
+            color: #2B6CB0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Shake animation for wrong answers */
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        /* CSS Render Graphics for Matching Items */
+        .matching-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .match-card {
+            background: #F8F9FA;
+            border: 2px dashed #B2BEC3;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+        }
+        .graphic-box {
+            width: 100%;
+            height: 100px;
+            background: #DFE6E9;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        /* Submit Section & Modal */
+        .submit-wrapper {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-submit {
+            background: var(--teal);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #00A387;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #00A387;
+        }
+
+        .btn-submit:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #00A387;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0; pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1; pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 0 rgba(0,0,0,0.2);
+            transform: scale(0.7);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .modal-comment {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-close {
+            background: #FDCB6E;
+            color: #2D3436;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #E1B12C;
+        }
+
+        /* Canvas Confetti layer */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h5 class="author">Giáo viên tạo: Ms Lê Hằng English</h5>
+        </header>
+
+        <div class="notice-board">
+            <span class="notice-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</span>
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <span style="color: var(--primary)">* Kéo tới đâu, làm tới đó! *</span>
+        </div>
+
+        <form id="quizForm" onsubmit="event.preventDefault();">
+            <!-- EXERCISE 3 -->
+            <div class="exercise-title">Exercise 3: Choose the odd one out in each group.</div>
+            <div id="ex3-container"></div>
+
+            <!-- EXERCISE 4 -->
+            <div class="exercise-title">Exercise 4: Complete the sentences with the words from the box.</div>
+            <div class="card">
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; justify-content:center;">
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">Club</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">hobby</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">dislikes</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">playing</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">gardening</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">painting</span>
+                </div>
+                <div id="ex4-container"></div>
+            </div>
+
+            <!-- EXERCISE 5 -->
+            <div class="exercise-title">Exercise 5: Match the words with the correct pictures.</div>
+            <div class="card">
+                <div id="ex5-container" class="matching-grid"></div>
+            </div>
+
+            <!-- EXERCISE 6 -->
+            <div class="exercise-title">Exercise 6: Choose the word/ phrase/ sentence (A, B, C, or D) that best fits the space in each sentence or best answers the question.</div>
+            <div id="ex6-container"></div>
+
+            <!-- EXERCISE 7 -->
+            <div class="exercise-title">Exercise 7: Choose the correct words to fill in the blanks.</div>
+            <div class="card">
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; justify-content:center;">
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">twice</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">pottery</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">unusual</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">making</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">of</span>
+                    <span style="background:#E2E8F0; padding:5px 15px; border-radius:10px; font-weight:700;">go</span>
+                </div>
+                <div id="ex7-container"></div>
+            </div>
+
+            <!-- EXERCISE 8 -->
+            <div class="exercise-title">Exercise 8: Circle the correct option in brackets.</div>
+            <div id="ex8-container"></div>
+
+            <!-- EXERCISE 9 -->
+            <div class="exercise-title">Exercise 9: Put the verbs in brackets in the correct form of present simple tense.</div>
+            <div id="ex9-container"></div>
+
+            <!-- EXERCISE 10 -->
+            <div class="exercise-title">Exercise 10: Complete the sentences, using the –ing form of the verbs in brackets.</div>
+            <div id="ex10-container"></div>
+
+            <!-- EXERCISE 11 -->
+            <div class="exercise-title">Exercise 11: Choose the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s).</div>
+            <div id="ex11-container"></div>
+
+            <!-- EXERCISE 12 -->
+            <div class="exercise-title">Exercise 12: Choose the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s).</div>
+            <div id="ex12-container"></div>
+
+            <!-- EXERCISE 13 -->
+            <div class="exercise-title">Exercise 13: Supply the correct form of the words in brackets.</div>
+            <div id="ex13-container"></div>
+
+            <div class="submit-wrapper">
+                <button type="button" class="btn-submit" onclick="gradeQuiz()">NỘP BÀI XEM KẾT QUẢ 🎉</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Score Modal -->
+    <div id="scoreModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Kết Quả Làm Bài Của Con</h2>
+            <div class="modal-score" id="modalScoreText">0/0</div>
+            <div class="modal-comment" id="modalCommentText">Lời nhận xét...</div>
+            <button class="btn-close" onclick="closeModal()">Làm lại nha 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // --- WEB AUDIO API AUDIO GENERATOR ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        // --- CONFETTI EFFECT ENGINE ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confetti = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+        function spawnConfetti() {
+            confetti = [];
+            for (let i = 0; i < 100; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * canvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+            animateConfetti();
+        }
+
+        let animationFrameId;
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let remaining = false;
+            confetti.forEach((p, idx) => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                p.x += Math.sin(p.tiltAngle);
+                p.tilt = Math.sin(p.tiltAngle - idx / 3) * 15;
+
+                if (p.y <= canvas.height) remaining = true;
+
+                ctx.beginPath();
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                ctx.stroke();
+            });
+            if (remaining) animationFrameId = requestAnimationFrame(animateConfetti);
+        }
+
+        // --- SHUFFLE UTILITY ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // --- DATABASE OF QUESTIONS ---
+        const quizData = {
+            ex3: [
+                { q: "1.", opts: ["interesting", "Exciting", "fishing", "boring"], ans: "fishing", exp: "1. Phân tích từ vựng:\nA. interesting (adj): thú vị\nB. Exciting (adj): hào hứng\nC. fishing (v-ing/n): hoạt động câu cá\nD. boring (adj): nhàm chán\n2. Dịch nghĩa toàn bộ: Các từ A, B, D đều là tính từ chỉ tính chất cảm xúc. Riêng C là danh từ/động từ chỉ hành động.\n3. Tại sao chọn C? Vì 'fishing' khác loại danh từ so với 3 tính từ còn lại.\n4. Các đáp án khác sai vì đều cùng một loại từ là tính từ miêu tả." },
+                { q: "2.", opts: ["newspaper", "Cake", "book", "novel"], ans: "Cake", exp: "1. Phân tích từ vựng:\nA. newspaper (n): tờ báo\nB. Cake (n): chiếc bánh ngọt\nC. book (n): quyển sách\nD. novel (n): tiểu thức/tiểu thuyết\n2. Dịch nghĩa toàn bộ: Các từ A, C, D đều thuộc nhóm đồ vật để đọc, chứa thông tin chữ viết. Riêng B là thức ăn.\n3. Tại sao chọn B? Bánh ngọt (Cake) không thuộc nhóm tài liệu đọc.\n4. Các đáp án khác sai vì đều là ấn phẩm đọc." },
+                { q: "3.", opts: ["Violin", "football", "badminton", "golf"], ans: "Violin", exp: "1. Phân tích từ vựng:\nA. Violin (n): đàn vĩ cầm\nB. football (n): môn bóng đá\nC. badminton (n): môn cầu lông\nD. golf (n): môn đánh golf\n2. Dịch nghĩa toàn bộ: B, C, D là các môn thể thao vận động. A là một loại nhạc cụ.\n3. Tại sao chọn A? Violin thuộc lĩnh vực âm nhạc, khác biệt hoàn toàn với thể thao.\n4. Các đáp án khác sai vì đều đồng nghĩa thuộc nhóm chủ đề thể thao." },
+                { q: "4.", opts: ["Cinema", "circus", "theatre", "Internet"], ans: "Internet", exp: "1. Phân tích từ vựng:\nA. Cinema (n): rạp chiếu phim\nB. circus (n): rạp xiếc\nC. theatre (n): nhà hát\nD. Internet (n): mạng toàn cầu\n2. Dịch nghĩa toàn bộ: A, B, C là các địa điểm vui chơi giải trí vật lý công cộng ngoài đời thực. D là không gian mạng ảo.\n3. Tại sao chọn D? Internet là hệ thống kết nối số, không phải địa điểm xây dựng ngoài đời thực như rạp phim hay rạp xiếc.\n4. Các đáp án khác sai vì đều là địa danh giải trí trực tiếp." },
+                { q: "5.", opts: ["Teacher", "father", "mother", "sister"], ans: "Teacher", exp: "1. Phân tích từ vựng:\nA. Teacher (n): giáo viên\nB. father (n): bố\nC. mother (n): mẹ\nD. sister (n): chị/em gái\n2. Dịch nghĩa toàn bộ: B, C, D đều là các danh từ chỉ thành viên thân thiết ruột thịt trong gia đình. A là một nghề nghiệp.\n3. Tại sao chọn A? Teacher thuộc nhóm nghề nghiệp xã hội.\n4. Các đáp án khác sai vì nằm trong trường từ vựng gia đình." }
+            ],
+            ex4: [
+                { q: "1. Linda adores _____________. Her paintings are very beautiful.", ans: "painting", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- painting (n): việc vẽ tranh\n2. Dịch nghĩa toàn câu: 'Linda yêu thích việc vẽ tranh. Những bức họa của cô ấy rất đẹp.'\n3. Tại sao chọn painting? Vế sau có 'paintings' (các bức vẽ), từ đó suy ra sở thích của cô ấy phải là hành động vẽ tranh (painting).\n4. Các đáp án khác sai vì không ăn nhập ngữ cảnh tranh ảnh." },
+                { q: "2. She loves doing the _____________. She often works in the garden.", ans: "gardening", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- gardening (n): việc làm vườn\n2. Dịch nghĩa toàn câu: 'Cô ấy yêu thích làm vườn. Cô ấy thường làm việc ở trong vườn.'\n3. Tại sao chọn gardening? Cụm từ cố định 'do the gardening' có nghĩa là làm vườn. Đồng thời vế sau có từ gợi ý 'garden'.\n4. Các đáp án khác sai vì không đi cùng động từ 'do the' tạo nghĩa phù hợp." },
+                { q: "3. Thomas often goes to the Golf _____________ on Saturdays.", ans: "Club", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- Club (n): câu lạc bộ\n2. Dịch nghĩa toàn câu: 'Thomas thường đi đến câu lạc bộ Golf vào các ngày thứ Bảy.'\n3. Tại sao chọn Club? Danh từ ghép 'Golf Club' tạo thành cụm từ có nghĩa là Câu lạc bộ Golf, nơi người ta đến chơi thể thao.\n4. Các đáp án khác sai vì không kết hợp với 'Golf' để chỉ một địa điểm có thể 'goes to'." },
+                { q: "4. John likes _____________ video games very much.", ans: "playing", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- playing (v-ing): chơi\n2. Dịch nghĩa toàn câu: 'John thích chơi trò chơi điện tử rất nhiều.'\n3. Tại sao chọn playing? Động từ 'play' đi cùng danh từ 'video games' để tạo thành hành động chơi game hợp lý.\n4. Các đáp án khác sai vì không thể làm hành động tác động lên 'video games'." },
+                { q: "5. She doesn’t have any coins. She _____________ collecting coins.", ans: "dislikes", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- dislikes (v): ghét/không thích\n2. Dịch nghĩa toàn câu: 'Cô ấy không có bất kỳ đồng xu nào. Cô ấy không thích sưu tầm tiền xu.'\n3. Tại sao chọn dislikes? Vì vế trước bảo 'doesn't have any coins' (không có đồng xu nào), chứng tỏ cô ấy không hào hứng hoặc ghét bộ môn này, cần một động từ chia số ít ở dạng phủ định/tiêu cực.\n4. Các đáp án khác sai vì không phải động từ chính hòa hợp với chủ ngữ 'She'." },
+                { q: "6. He jogs every day. His _____________ is jogging.", ans: "hobby", opts: ["Club", "hobby", "dislikes", "playing", "gardening", "painting"], exp: "1. Phân tích từ vựng:\n- hobby (n): sở thích cá nhân\n2. Dịch nghĩa toàn câu: 'Anh ấy đi bộ chạy bộ mỗi ngày. Sở thích của anh ấy là chạy bộ.'\n3. Tại sao chọn hobby? Câu đang định nghĩa hành động chạy bộ hằng ngày chính là niềm đam mê sở thích (hobby) của anh ấy.\n4. Các đáp án khác sai vì không đúng cấu trúc định nghĩa danh từ." }
+            ],
+            ex5: [
+                { name: "1. fishing", ans: "b", icon: "🎣", exp: "1. Giải thích hình ảnh: Biểu tượng cần câu và con cá chính là hành động 'fishing' (Câu cá). Do đó nối với phương án hình b." },
+                { name: "2. ice-skating", ans: "e", icon: "⛸️", exp: "1. Giải thích hình ảnh: Biểu tượng giày trượt băng đại diện cho môn thể thao nghệ thuật 'ice-skating' (Trượt băng). Do đó nối với phương án e." },
+                { name: "3. playing the piano", ans: "d", icon: "🎹", exp: "1. Giải thích hình ảnh: Biểu tượng phím đàn đại diện cho hành động 'playing the piano' (Chơi đàn dương cầm). Do đó nối với đáp án d." },
+                { name: "4. collecting stamps", ans: "a", icon: "✉️", exp: "1. Giải thích hình ảnh: Biểu tượng chiếc phong thư đại diện cho sở thích 'collecting stamps' (Sưu tầm tem thư). Do đó khớp với đáp án a." },
+                { name: "5. riding a horse", ans: "c", icon: "🐴", exp: "1. Giải thích hình ảnh: Biểu tượng đầu ngựa đại diện cho bộ môn thể thao quý tộc 'riding a horse' (Cưỡi ngựa). Do đó khớp đáp án c." }
+            ],
+            ex6: [
+                { q: "1. They spend 1 hour _______ the Internet.", opts: ["Surf", "to surf", "surfed", "surfing"], ans: "surfing", exp: "1. Dịch câu: 'Họ dành ra 1 tiếng đồng hồ lướt mạng Internet.'\n2. Phân tích ngữ pháp: Cấu trúc cố định: Spend + time + V-ing (Dành thời gian làm việc gì).\n3. Tại sao chọn D? Vì 'surfing' tuân thủ đúng dạng V-ing sau cấu trúc spend time.\n4. Loại A, B, C vì sai công thức ngữ pháp cơ bản của động từ spend." },
+                { q: "2. We don't want _______ the game any more.", opts: ["to play", "playing", "played", "play"], ans: "to play", exp: "1. Dịch câu: 'Chúng tôi không muốn chơi trò chơi này nữa.'\n2. Phân tích ngữ pháp: Cấu trúc động từ: Want + to-V (Muốn làm việc gì).\n3. Tại sao chọn A? Cụm 'to play' ở dạng nguyên mẫu có to đứng sau động từ want.\n4. Loại B, C, D vì không thể đi trực tiếp dạng bare hay v-ing theo sau động từ mang ý chí want." },
+                { q: "3. He likes _______ stamps.", opts: ["Collects", "collect", "to collecting", "collecting"], ans: "collecting", exp: "1. Dịch câu: 'Cậu ấy thích sưu tầm những chiếc tem.'\n2. Phân tích ngữ pháp: Sau động từ chỉ sự yêu thích 'like' ta sử dụng danh động từ V-ing hoặc To-V nguyên mẫu.\n3. Tại sao chọn D? 'collecting' là dạng V-ing phù hợp biểu thị sở thích lâu dài.\n4. Loại A, B sai do chia thì động từ; loại C sai vì cấu trúc 'to + v-ing' là sai ngữ pháp trong trường hợp này." },
+                { q: "4. She finds bird-watching _____________.", opts: ["Excite", "excited", "exciting", "excitement"], ans: "exciting", exp: "1. Dịch câu: 'Cô ấy nhận thấy việc ngắm nhìn chim muông rất thú vị.'\n2. Phân tích ngữ pháp: Cấu trúc: Find + something + Adj (Nhận thấy cái gì thế nào). Bird-watching là danh từ chỉ vật/sự việc, nên tính từ bổ nghĩa cho nó phải là tính từ đuôi -ing để chỉ đặc điểm tính chất.\n3. Tại sao chọn C? 'exciting' diễn tả tính chất của hoạt động ngắm chim.\n4. Loại A (động từ), D (danh từ). Loại B (excited) vì tính từ đuôi -ed chỉ dùng cho cảm xúc con người." },
+                { q: "5. Jack was _______ pottery yesterday morning.", opts: ["Doing", "making", "watching", "eating"], ans: "making", exp: "1. Dịch câu: 'Jack đang nặn gốm sáng ngày hôm qua.'\n2. Phân tích ngữ pháp: Cụm từ cố định làm đồ gốm trong tiếng Anh là 'make pottery'.\n3. Tại sao chọn B? 'making' kết hợp tạo thành ngữ nghĩa nặn và nhào nặn đồ gốm chính xác.\n4. Loại A, C, D vì không đi chung phối hợp ngữ nghĩa với danh từ nghệ thuật gốm." },
+                { q: "6. I help my mum _______ vegetables in my free time.", opts: ["Play", "paint", "plant", "make"], ans: "plant", exp: "1. Dịch câu: 'Tớ giúp mẹ trồng rau xanh vào thời gian rảnh rỗi.'\n2. Phân tích từ vựng 4 đáp án: A. chơi; B. vẽ; C. trồng trọt; D. chế tạo.\n3. Tại sao chọn C? Động từ 'plant' đi cùng 'vegetables' mang nghĩa trồng rau hoàn toàn hợp ngữ cảnh hoạt động giúp đỡ mẹ.\n4. Loại các đáp án còn lại vì ghép nghĩa vô lý." },
+                { q: "7. His mum usually _______ whenever she _______ free time.", opts: ["garden - have", "gardens - has", "will garden - has", "will garden - will have"], ans: "gardens - has", exp: "1. Dịch câu: 'Mẹ của anh ấy thường làm vườn bất cứ khi nào bà ấy có thời gian rảnh.'\n2. Phân tích ngữ pháp: Câu có trạng từ tần suất 'usually' chỉ thói quen lặp đi lặp lại ở hiện tại -> Dùng thì Hiện tại đơn cho cả hai vế. Chủ ngữ là 'His mum' (số ít) và 'she' (số ít).\n3. Tại sao chọn B? Động từ 'gardens' và 'has' đều được chia số ít ở hiện tại đơn.\n4. Loại A vì chưa chia số ít; Loại C, D vì dùng thì tương lai sai bản chất thói quen hiện tại." },
+                { q: "8. Carving eggs is _______.", opts: ["Interest", "interested", "interesting", "interestingly"], ans: "interesting", exp: "1. Dịch câu: 'Điêu khắc vỏ trứng thì rất thú vị.'\n2. Phân tích ngữ pháp: Đứng sau động từ tobe 'is' cần một tính từ. Chủ ngữ là hành động 'Carving eggs' (vật/việc) nên ta chọn tính từ chủ động mang đuôi -ing.\n3. Tại sao chọn C? 'interesting' miêu tả đặc điểm cuốn hút của bộ môn này.\n4. Loại A (danh từ), D (trạng từ). Loại B vì 'interested' chỉ dùng cho người nhận cảm xúc." },
+                { q: "9. What do you think _______ carving wood?", opts: ["On", "by", "in", "about"], ans: "about", exp: "1. Dịch câu: 'Bạn suy nghĩ thế nào về việc điêu khắc gỗ?'\n2. Phân tích ngữ pháp: Cấu trúc hỏi ý kiến: Think about + V-ing/N (Suy nghĩ, cân nhắc về điều gì).\n3. Tại sao chọn D? Giới từ 'about' đi kèm động từ think tạo nên nghĩa hỏi quan điểm.\n4. Loại A, B, C do không tạo thành cụm từ đúng ngữ pháp theo ngữ cảnh hỏi ý kiến." },
+                { q: "10. My sister _______ a bike yesterday.", opts: ["Rode", "went", "watched", "did"], ans: "rode", exp: "1. Dịch câu: 'Chị gái tớ đã đạp xe đạp ngày hôm qua.'\n2. Phân tích ngữ pháp: Câu có trạng ngữ 'yesterday' chỉ quá khứ đơn. Động từ đi với 'a bike' là 'ride' -> Quá khứ bất quy tắc là 'rode'.\n3. Tại sao chọn A? Cụm 'rode a bike' nghĩa là đã đạp xe đạp.\n4. Loại B, C, D vì không thể kết hợp động từ thành ngữ nghĩa đi xe đạp." },
+                { q: "11. I really like ________ - especially in the sea.", opts: ["Jogging", "swimming", "cycling", "gardening"], ans: "swimming", exp: "1. Dịch câu: 'Tớ thực sự thích bơi lội - đặc biệt là bơi ở biển.'\n2. Phân tích từ vựng: A. chạy bộ; B. bơi lội; C. đạp xe; D. làm vườn.\n3. Tại sao chọn B? Từ khóa cốt lõi 'in the sea' (ở biển) bắt buộc hành động phải là bơi lội (swimming).\n4. Loại các từ còn lại vì không ai chạy bộ hay đạp xe dưới biển." },
+                { q: "12. I’m interested in ________. My favorite band is T-ara from Korea.", opts: ["Films", "sports", "music", "photography"], ans: "music", exp: "1. Dịch câu: 'Tớ rất quan tâm tới âm nhạc. Nhóm nhạc yêu thích của tớ là T-ara đến từ Hàn Quốc.'\n2. Phân tích từ vựng: Gặp từ khóa mang tín hiệu mạnh 'band' (nhóm nhạc) và tên nhóm nhạc T-ara.\n3. Tại sao chọn C? 'music' là phạm trù chứa các ban nhạc.\n4. Loại A, B, D vì ban nhạc không thuộc phim ảnh, thể thao hay nhiếp ảnh." },
+                { q: "13. I love ________. I go to the cinema every weekend.", opts: ["Books", "films", "music", "nature"], ans: "films", exp: "1. Dịch câu: 'Tớ thích phim ảnh. Tớ đến rạp chiếu phim mỗi tuần.'\n2. Phân tích từ vựng: Từ khóa 'cinema' (rạp chiếu phim) chính là địa điểm để thưởng thức phim.\n3. Tại sao chọn B? 'films' đồng nhất ăn khớp hoàn hảo với địa danh rạp phim.\n4. Loại A, C, D vì rạp phim không dùng để đọc sách hay đi dã ngoại thiên nhiên." },
+                { q: "14. I really like ________. I don’t play it, but I watch matches on TV.", opts: ["Judo", "basketball", "board games", "bird-watching"], ans: "basketball", exp: "1. Dịch câu: 'Tớ rất thích bóng rổ. Tớ không chơi trực tiếp nhưng tớ thường xem các trận đấu trên tivi.'\n2. Phân tích từ vựng: Từ khóa 'play it' và 'watch matches' (xem các trận đấu) biểu thị đây phải là một môn thể thao đối kháng có trận đấu đồng đội.\n3. Tại sao chọn B? 'basketball' (bóng rổ) thi đấu theo trận, phù hợp ngữ cảnh.\n4. Loại A (môn võ dùng cụm do judo, không dùng từ đấu trận match như bóng), C và D không phù hợp với 'matches'." },
+                { q: "15. My hobby is ________. I have a new camera.", opts: ["collecting", "Modeling", "photography", "painting"], ans: "photography", exp: "1. Dịch câu: 'Sở thích của tớ là nhiếp ảnh. Tớ có một chiếc máy ảnh mới.'\n2. Phân tích từ vựng: Từ khóa 'camera' (máy ảnh) là công cụ chuyên dụng của bộ môn nhiếp ảnh.\n3. Tại sao chọn C? 'photography' nghĩa là nhiếp ảnh, đi kèm thiết bị camera.\n4. Loại A, B, D vì nặn mô hình, vẽ tranh hay sưu tầm không cần dùng máy ảnh làm dụng cụ chính." },
+                { q: "16. I love ________. My favorite writer is To Hoai. ", opts: ["Books", "films", "lyrics", "photos"], ans: "books", exp: "1. Dịch câu: 'Tớ yêu sách truyện. Nhà văn yêu thích của tớ là Tô Hoài.'\n2. Phân tích từ vựng: Từ khóa 'writer' (nhà văn) là người sáng tác ra các tác phẩm văn học sách báo.\n3. Tại sao chọn A? 'books' liên quan trực tiếp tới nhà văn Tô Hoài.\n4. Loại B, C, D vì nhà văn không chuyên sáng tác phim hay ảnh chụp chụp hình." },
+                { q: "17. I really love ________ in the park with my friends.", opts: ["kayaking", "Hiking", "skating", "surfing"], ans: "skating", exp: "1. Dịch câu: 'Tớ rất thích trượt patin trong công viên cùng bạn bè.'\n2. Phân tích từ vựng: Địa điểm 'in the park' (trong công viên) có đường bê tông bằng phẳng.\n3. Tại sao chọn C? 'skating' (trượt patin/ván) diễn ra phổ biến ở công viên.\n4. Loại A (kayak) và D (lướt sóng) dưới nước; B (hiking) là leo núi đường trường không hợp công viên nhỏ." },
+                { q: "18. I like ________. I play against my dad. I also play against other people on the Internet.", opts: ["Chess", "board games", "competition", "judo"], ans: "Chess", exp: "1. Dịch câu: 'Tớ thích cờ vua. Tớ đấu với bố tớ. Tớ cũng đấu trực tuyến với người khác trên mạng.'\n2. Phân tích từ vựng: Bộ môn chơi đối kháng trực tiếp từng người 'against' (chống lại/đấu với) cực kỳ phổ biến online và offline.\n3. Tại sao chọn A? 'Chess' (Cờ vua) cụ thể hóa chính xác mô tả chơi trực tuyến hoặc chơi đấu trí 2 người.\n4. Loại B tuy đúng nhóm nhưng quá rộng, loại C, D sai ngữ cảnh." },
+                { q: "19. My father often does a lot of ________: planting plants or flowers and cutting lawns.", opts: ["cooking", "Gardening", "cycling", "swimming"], ans: "Gardening", exp: "1. Dịch câu: 'Bố tớ thường làm nhiều việc làm vườn: trồng cây, trồng hoa và cắt thảm cỏ.'\n2. Phân tích từ vựng: Dấu hai chấm liệt kê các việc 'planting plants, flowers, cutting lawns' (trồng hoa, cắt cỏ) đều thuộc phạm vi công việc vườn tược.\n3. Tại sao chọn B? 'Gardening' là danh từ chỉ công việc làm vườn bao hàm các hành động trên.\n4. Loại A, C, D vì nấu ăn, đạp xe, bơi lội không liên quan đến hoa cỏ thảm cỏ." },
+                { q: "20. She’s very good with her hands - she can make beautiful ________ with small items and tiny dolls in them.", opts: ["models", "Collages", "dollhouses", "clay"], ans: "dollhouses", exp: "1. Dịch câu: 'Cô ấy khéo tay lắm - cô ấy có thể tạo ra những ngôi nhà búp bê xinh đẹp chứa các món đồ nhỏ và búp bê tí hon bên trong.'\n2. Phân tích từ vựng: Từ khóa 'tiny dolls in them' (búp bê tí hon ở bên trong).\n3. Tại sao chọn C? 'dollhouses' nghĩa là nhà búp bê, nơi chứa búp bê và mô hình nội thất nhỏ xinh.\n4. Loại A, B, D vì đất sét hay tranh cắt dán không chứa các con búp bê bên trong một cách hợp lý như ngôi nhà búp bê." },
+                { q: "21. In Amsterdam, people do a lot of ________ instead of driving cars.", opts: ["jogging", "Cycling", "surfing", "judo"], ans: "Cycling", exp: "1. Dịch câu: 'Ở Amsterdam, mọi người đạp xe rất nhiều thay vì lái ô tô.'\n2. Phân tích bối cảnh: Thành phố Amsterdam nổi tiếng toàn cầu là thủ đô của xe đạp, phương tiện giao thông thay thế ô tô.\n3. Tại sao chọn B? 'Cycling' nghĩa là đạp xe xe đạp, phương tiện đi lại thay thế 'driving cars'.\n4. Loại A, C, D vì chạy bộ, lướt sóng, võ thuật không phải phương tiện thay thế việc lái ô tô đi chuyển đường dài." },
+                { q: "22. She can put flowers in an attractive way - she’s very good at flower ________.", opts: ["arranging", "Decorating", "carving", "displays"], ans: "arranging", exp: "1. Dịch câu: 'Cô ấy biết đặt cắm những bông hoa theo cách rất thu hút - cô ấy rất giỏi cắm hoa.'\n2. Phân tích ngữ nghĩa: Hành động đặt hoa vào bình/lọ một cách nghệ thuật gọi là cắm hoa: Flower arranging.\n3. Tại sao chọn A? Cụm danh từ 'flower arranging' nghĩa là nghệ thuật cắm hoa nghệ thuật.\n4. Loại B, C, D vì không tạo thành cụm từ đúng thuật ngữ gốc của hành động này." },
+                { q: "23. Tom is interested in studying eagles in the natural environment; his hobby is ________.", opts: ["collecting", "Bird-watching", "nature", "photography"], ans: "Bird-watching", exp: "1. Dịch câu: 'Tom thích nghiên cứu chim đại bàng ngoài môi trường tự nhiên; sở thích của cậu ấy là ngắm chim.'\n2. Phân tích từ vựng: Đại bàng 'eagles' là một loài chim, hành động quan sát nghiên cứu chúng ngoài tự nhiên gọi là ngắm chim.\n3. Tại sao chọn B? 'Bird-watching' nghĩa là ngắm nhìn và nghiên cứu chim muông tự nhiên.\n4. Loại A, C, D vì không gọi đúng tên cụ thể của sở thích quan sát đại bàng này." },
+                { q: "24. Chess is one of the most popular ________.", opts: ["board games", "video games", "outdoor games", "computer games"], ans: "board games", exp: "1. Dịch câu: 'Cờ vua là một trong số những trò chơi bàn cờ phổ biến nhất.'\n2. Phân tích từ vựng: Cờ vua dùng bàn cờ và quân cờ di chuyển vật lý nên được xếp vào nhóm Board game.\n3. Tại sao chọn A? 'board games' là phân loại chính xác của môn cờ vua.\n4. Loại B, C, D vì cờ vua truyền thống không phải trò chơi điện tử hay trò chơi ngoài trời." },
+                { q: "25. Young women should learn some simple basic home ________ before they have their own family.", opts: ["Sewing", "cooking", "carving", "gluing"], ans: "cooking", exp: "1. Dịch câu: 'Các cô gái trẻ nên học một vài kỹ năng nấu nướng gia đình cơ bản đơn giản trước khi tự lập gia đình nhỏ.'\n2. Phân tích từ vựng ngữ cảnh: Công việc túc trực thiết yếu phục vụ bữa ăn gia đình hằng ngày luôn là nấu ăn.\n3. Tại sao chọn B? 'cooking' (nấu ăn) thiết thực và phù hợp nhất với đời sống gia đình hằng ngày.\n4. Loại A, C, D vì điêu khắc, may vá, dán keo không phải kỹ năng ẩm thực cốt lõi của mọi gia đình." },
+                { q: "26. Ms Brown often travels around the world, and she is very interested in landscape and wildlife ________.", opts: ["Models", "photography", "Bird-watching", "collecting"], ans: "photography", exp: "1. Dịch câu: 'Cô Brown thường đi du lịch vòng quanh thế giới, và cô ấy rất thích chụp ảnh phong cảnh và động vật hoang dã.'\n2. Phân tích ngữ cảnh: Đi du lịch vòng quanh thế giới 'travels around the world' kết hợp với từ khóa phong cảnh 'landscape' và động vật hoang dã 'wildlife'.\n3. Tại sao chọn B? 'photography' (nhiếp ảnh) là hoạt động lưu giữ lại vẻ đẹp của phong cảnh và muông thú khi đi du lịch.\n4. Loại A, C, D không phản ánh bao quát trọn vẹn việc thưởng ngoạn phong cảnh giống nhiếp ảnh." },
+                { q: "27. Mai has lots of dolls. She wants to build a ________ for them.", opts: ["Doll", "coin", "model", "dollhouse"], ans: "dollhouse", exp: "1. Dịch câu: 'Mai có rất nhiều búp bê. Cô ấy muốn xây dựng một ngôi nhà búp bê cho chúng.'\n2. Phân tích ngữ cảnh: Có nhiều búp bê 'dolls', muốn xây một không gian 'for them' (cho chúng ở).\n3. Tại sao chọn D? 'dollhouse' là ngôi nhà dành riêng cho búp bê ở.\n4. Loại A, B, C vì không đúng công năng làm nhà cho búp bê." },
+                { q: "28. You need some ________ and glue to build dollhouses.", opts: ["Cardboard", "money", "stamps", "films"], ans: "Cardboard", exp: "1. Dịch câu: 'Bạn cần một ít bìa các-tông và keo dán để xây dựng những ngôi nhà búp bê.'\n2. Phân tích từ vựng: Nguyên liệu đi kèm với keo dán 'glue' để cắt ghép mô hình nhà thủ công handmade.\n3. Tại sao chọn A? 'Cardboard' (bìa cứng/bìa các-tông) là vật liệu thủ công quen thuộc để dựng nhà đồ chơi.\n4. Loại B, C, D không phải nguyên liệu trực tiếp để phết keo dán khung nhà thủ công." },
+                { q: "29. I have a big coin ________. They are from many different countries.", opts: ["Club", "hobby", "collection", "creativity"], ans: "collection", exp: "1. Dịch câu: 'Tớ có một bộ sưu tập tiền xu lớn. Chúng đến từ rất nhiều quốc gia khác nhau.'\n2. Phân tích ngữ cảnh: Sở hữu nhiều tiền xu từ nhiều nước 'from many different countries' gộp lại tạo nên một bộ sưu tập.\n3. Tại sao chọn C? 'collection' nghĩa là bộ sưu tập danh từ.\n4. Loại A, B, D không tạo cấu trúc nghĩa sở hữu khối lượng hiện vật tích trữ." },
+                { q: "30. My father goes to the Riders’ Club every weekend. His hobby is ________.", opts: ["horse riding", "Gardening", "swimming", "dancing"], ans: "horse riding", exp: "1. Dịch câu: 'Bố của tớ tới câu lạc bộ kỵ sĩ (Riders' Club) mỗi cuối tuần. Sở thích của ông ấy là cưỡi ngựa.'\n2. Phân tích từ vựng: Từ khóa 'Riders' Club' (Câu lạc bộ những người cưỡi xe/cưỡi ngựa) dẫn thẳng tới bộ môn này.\n3. Tại sao chọn A? 'horse riding' nghĩa là cưỡi ngựa, tương thích hoàn toàn với danh từ kỵ sĩ Rider.\n4. Loại B, C, D vì không liên quan tới hoạt động của một Rider." },
+                { q: "31. Collecting old books is Quan’s ________. He has a lot of old books.", opts: ["collection", "Model", "dollhouse", "hobby"], ans: "hobby", exp: "1. Dịch câu: 'Sưu tầm sách cũ là sở thích của Quân. Cậu ấy có rất nhiều sách cũ.'\n2. Phân tích ngữ pháp: Câu đang giới thiệu hành động 'Collecting old books' đóng vai trò là một niềm đam mê sở thích cá nhân.\n3. Tại sao chọn D? 'hobby' biểu thị đây là một sở thích.\n4. Loại A vì 'Collecting...' chính là hành động tạo ra bộ sưu tập chứ bản thân hành động đó được định nghĩa là một sở thích 'hobby'." },
+                { q: "32. Her painting isn’t very impressive.  She needs a bit of ________", opts: ["Glue", "creativity", "paper", "cardboard"], ans: "creativity", exp: "1. Dịch câu: 'Bức họa của cô ấy không ấn tượng lắm. Cô ấy cần thêm một chút sự sáng tạo.'\n2. Phân tích ngữ cảnh: Họa phẩm chưa ấn tượng chứng tỏ thiếu nét độc đáo độc quyền của tư duy ý tưởng trí tuệ.\n3. Tại sao chọn B? 'creativity' nghĩa là sự sáng tạo, chất xúc tác giúp hội họa trở nên ấn tượng.\n4. Loại A, C, D vì đều là vật liệu thô không giải quyết được tính nghệ thuật ấn tượng của nét vẽ." },
+                { q: "33. My sister has a lot of coins from different countries. Her hobby is ________.", opts: ["building dollhouses", "collecting coins", "swimming", "making models"], ans: "collecting coins", exp: "1. Dịch câu: 'Em gái tớ có rất nhiều tiền xu từ các quốc gia khác nhau. Sở thích của em ấy là sưu tầm tiền xu.'\n2. Phân tích từ vựng: Gợi ý rõ ràng từ danh từ 'coins' (tiền xu).\n3. Tại sao chọn B? 'collecting coins' là hành động sưu tầm tiền xu.\n4. Loại A, C, D vì không liên quan đến vật thể tiền xu." },
+                { q: "34. My brother goes to the Riders' Club every Sunday. His hobby is ________.", opts: ["gardening", "making models", "horse riding", "swimming"], ans: "horse riding", exp: "1. Dịch câu: 'Anh trai tớ đến Câu lạc bộ Kỵ sĩ mỗi Chủ nhật. Sở thích của anh ấy là cưỡi ngựa.'\n2. Phân tích tương tự câu 30: Câu lạc bộ 'Riders' Club' quy tụ những người yêu thích bộ môn cưỡi ngựa.\n3. Tại sao chọn C? 'horse riding' đồng nghĩa ngữ cảnh.\n4. Loại A, B, D vì sai trường từ vựng kỵ sĩ." },
+                { q: "35. Hoa is very creative, and she paints very well. Her hobby is ________.", opts: ["horse riding", "painting", "swimming", "skating"], ans: "painting", exp: "1. Dịch câu: 'Hoa rất sáng tạo, và cô ấy vẽ rất đẹp. Sở thích của cô ấy là hội họa vẽ tranh.'\n2. Phân tích từ vựng: Động từ gợi ý cốt lõi 'paints' (vẽ, tô màu).\n3. Tại sao chọn B? 'painting' danh từ chỉ bộ môn vẽ tranh.\n4. Loại A, C, D vì không ăn khớp với hành động vẽ." },
+                { q: "36. My father loves doing the ________.", opts: ["Gardening", "horse riding", "ice-skating", "painting"], ans: "Gardening", exp: "1. Dịch câu: 'Bố tớ thích làm công việc vườn tược.'\n2. Phân tích cấu trúc ngữ pháp: Đi cùng cụm động từ 'do the + ...' chỉ có từ làm vườn: do the gardening.\n3. Tại sao chọn A? Cấu trúc 'do the gardening' chuẩn ngữ pháp tiếng Anh.\n4. Loại B, C, D vì các từ này đi với động từ khác (ví dụ: go horse riding, go ice-skating, hoặc động từ paint đứng độc lập)." },
+                { q: "37. My brother is a big fan of ________. He often plays it after school.", opts: ["judo", "swimming", "football", "cooking"], ans: "football", exp: "1. Dịch câu: 'Anh trai tớ là một người hâm mộ cuồng nhiệt của bóng đá. Anh ấy thường chơi nó sau giờ học.'\n2. Phân tích ngữ pháp: Từ chìa khóa 'plays it' (chơi nó). Động từ 'play' đi cùng các môn thể thao dùng bóng hoặc đồng đội đấu với nhau.\n3. Tại sao chọn C? 'football' (bóng đá) hoàn toàn kết hợp chính xác với động từ play.\n4. Loại A vì võ thuật dùng do judo; B dùng go swimming; D dùng do cooking." },
+                { q: "38. She is very talented. She can make ________ like the real ones.", opts: ["coins", "models", "paintings", "stamps"], ans: "models", exp: "1. Dịch câu: 'Cô ấy rất tài năng. Cô ấy có thể làm ra những mô hình trông giống y như thật.'\n2. Phân tích ngữ cảnh: Tạo ra đồ vật nhân tạo thủ công mô phỏng giống đồ thật 'like the real ones' (như những cái thật).\n3. Tại sao chọn B? 'models' (mô hình) là các vật mô phỏng thu nhỏ thu thon của vật thể thật ngoài đời.\n4. Loại A, D vì đồng xu và tem thư không thể tự chế tạo giống vật thật ngoài đời theo nghĩa tài năng handmade này." },
+                { q: "39. Nam has a bike. He often ________ his bike to school.", opts: ["Is", "goes", "rides", "makes"], ans: "rides", exp: "1. Dịch câu: 'Nam có một chiếc xe đạp. Bạn ấy thường đạp xe đến trường.'\n2. Phân tích cụm từ: Hành động điều khiển xe đạp di chuyển luôn đi kèm động từ ride: ride a bike.\n3. Tại sao chọn C? 'rides' chia hiện tại đơn số ít theo chủ ngữ Nam.\n4. Loại A, B, D vì không kết hợp với tân ngữ 'his bike' tạo nghĩa đi xe." },
+                { q: "40. Laura wants to ________ a book about Vietnamese literature.", opts: ["Read", "ride", "play", "build"], ans: "read", exp: "1. Dịch câu: 'Laura muốn đọc một cuốn sách về văn học Việt Nam.'\n2. Phân tích từ vựng: Tân ngữ phía sau là 'a book' (cuốn sách) -> Hành động tương tác phổ biến nhất là đọc sách.\n3. Tại sao chọn A? 'Read' nghĩa là đọc, đi liền với book.\n4. Loại B, C, D vì không ai đạp sách, chơi sách hay xây sách trong ngữ cảnh văn học." },
+                { q: "41. At break time, we usually ________ basketball in the school yard.", opts: ["Write", "play", "go", "collect"], ans: "play", exp: "1. Dịch câu: 'Vào giờ ra chơi, chúng tớ thường chơi bóng rổ ở sân trường.'\n2. Phân tích ngữ pháp: Môn thể thao có bóng thi đấu đồng đội 'basketball' bắt buộc đi cùng động từ play.\n3. Tại sao chọn B? 'play basketball' nghĩa là chơi bóng rổ.\n4. Loại A, C, D vì không kết hợp được với môn thể thao bóng rổ." },
+                { q: "42. Jim doesn’t want to ________ judo with his classmates.", opts: ["Play", "cook", "have", "do"], ans: "do", exp: "1. Dịch câu: 'Jim không muốn tập võ judo cùng các bạn cùng lớp.'\n2. Phân tích ngữ pháp: Bộ môn võ thuật rèn luyện thể lực không dùng bóng như judo, karate luôn đi kèm động từ do.\n3. Tại sao chọn D? 'do judo' nghĩa là tập võ judo.\n4. Loại A vì play chỉ dùng cho môn thể thao đồng đội đấu bóng, loại B, C sai ngữ nghĩa kết hợp tự nhiên (collocation)." },
+                { q: "43. My uncle has a big bookshelf because he loves ________ old books.  ", opts: ["playing", "doing", "collecting", "going"], ans: "collecting", exp: "1. Dịch câu: 'Bác của tớ có một kệ sách lớn bởi vì bác ấy yêu thích việc sưu tầm sách cũ.'\n2. Phân tích ngữ cảnh: Có giá sách lớn 'big bookshelf' và sở hữu rất nhiều sách cổ cũ kỹ chứng tỏ có hành vi tích trữ sưu tầm.\n3. Tại sao chọn C? 'collecting' là hành động sưu tầm tích lũy.\n4. Loại A, B, D vì không tạo thành cụm từ có nghĩa đi với sách cũ." },
+                { q: "44. My friend Lan likes ________ camping at the weekend.", opts: ["Playing", "collecting", "making", "going"], ans: "going", exp: "1. Dịch câu: 'Bạn của tớ, Lan, thích đi cắm trại vào dịp cuối tuần.'\n2. Phân tích ngữ pháp: Hoạt động giải trí có đuôi -ing chỉ di chuyển dã ngoại bên ngoài như camping, shopping luôn đi với động từ go.\n3. Tại sao chọn D? 'going camping' nghĩa là đi cắm trại.\n4. Loại A, B, C do sai cấu trúc kết hợp động từ." },
+                { q: "45. Do you like ________ models?  ", opts: ["going", "making", "playing", "riding"], ans: "making", exp: "1. Dịch câu: 'Bạn có thích làm mô hình không?'\n2. Phân tích cụm từ: Hành động lắp ráp, chế tạo mô hình thủ công luôn dùng động từ make: make models.\n3. Tại sao chọn B? 'making' là danh động từ đứng sau động từ chỉ sở thích like.\n4. Loại A, C, D vì không tạo thành cụm từ mang ý nghĩa tạo hình lắp ráp mô hình." },
+                { q: "46. My mother enjoys ________ comedies.", opts: ["Going", "watching", "playing", "collecting"], ans: "watching", exp: "1. Dịch câu: 'Mẹ tớ thích xem phim hài.'\n2. Phân tích từ vựng: Tân ngữ 'comedies' là các bộ phim hài kịch, thể loại chương trình nghe nhìn hình ảnh.\n3. Tại sao chọn B? 'watching' (xem) phù hợp với tác phẩm truyền hình hình ảnh kịch nghệ.\n4. Loại A, C, D vì không thể đi bộ tới phim hài hay chơi phim hài." },
+                { q: "47. Mai hates ________ judo.", opts: ["Going", "doing", "taking", "collecting"], ans: "doing", exp: "1. Dịch câu: 'Mai ghét tập môn võ judo.'\n2. Phân tích ngữ pháp tương tự câu 42: Võ thuật judo đi kèm động từ gốc do -> Sau động từ chỉ cảm xúc mạnh như hate dùng V-ing là doing.\n3. Tại sao chọn B? 'doing judo' chuẩn cấu trúc collocations.\n4. Loại các từ còn lại vì sai động từ đi kèm võ thuật." },
+                { q: "48. She likes ________. She goes to the swimming club every Sunday.", opts: ["taking", "collecting", "playing", "swimming"], ans: "swimming", exp: "1. Dịch câu: 'Cô ấy thích bơi lội. Cô ấy đến câu lạc bộ bơi mỗi Chủ nhật.'\n2. Phân tích ngữ cảnh: Từ khóa gợi ý tuyệt đối 'swimming club' (câu lạc bộ bơi).\n3. Tại sao chọn D? 'swimming' chỉ bộ môn bơi lội trùng khớp hoàn toàn.\n4. Loại A, B, C không khớp logic với câu lạc bộ bơi." },
+                { q: "49. Nam adores ________ comic books.", opts: ["playing", "reading", "going", "making"], ans: "reading", exp: "1. Dịch câu: 'Nam yêu thích đọc sách truyện tranh.'\n2. Phân tích cụm từ: Đối với 'comic books' (sách truyện tranh) hành động tương tác phù hợp nhất là đọc sách.\n3. Tại sao chọn B? 'reading' nghĩa là đọc, thỏa mãn vị trí sau động từ yêu thích cuồng nhiệt adore.\n4. Loại A, C, D không đi với tân ngữ sách truyện." },
+                { q: "50. They don’t like horse riding. They like ________ football.", opts: ["Playing", "collecting", "making", "going"], ans: "playing", exp: "1. Dịch câu: 'Họ không thích cưỡi ngựa. Họ thích chơi đá bóng.'\n2. Phân tích tương tự câu 37: Môn thể thao vua dùng bóng đá đối kháng 'football' đi với động từ play.\n3. Tại sao chọn A? 'playing' bổ trợ sở thích đá bóng.\n4. Loại B, C, D vì không kết hợp với môn bóng đá." },
+                { q: "51. Lan has a lot of dolls. Her favorite hobby is ________ dolls.", opts: ["Going", "collecting", "playing", "doing"], ans: "collecting", exp: "1. Dịch câu: 'Lan có rất nhiều búp bê. Sở thích lớn nhất của bạn ấy là sưu tầm búp bê.'\n2. Phân tích ngữ cảnh: Có nhiều búp bê tích tụ 'a lot of dolls' biểu thị hành vi tích trữ đam mê sưu tập.\n3. Tại sao chọn B? 'collecting' nghĩa là sưu tầm búp bê.\n4. Loại A, C, D không phản ánh đúng sở thích tích lũy búp bê thành bộ sưu tập." },
+                { q: "52. My best friend Linh hates ________ computer games.", opts: ["Going", "collecting", "playing", "doing"], ans: "playing", exp: "1. Dịch câu: 'Bạn thân nhất của tớ, Linh, ghét chơi trò chơi máy tính.'\n2. Phân tích cụm từ: Trò chơi điện tử, game máy tính 'computer games' đi cùng động từ play.\n3. Tại sao chọn C? 'playing computer games' là chơi game.\n4. Loại các đáp án còn lại do không kết hợp từ đúng quy chuẩn ngữ pháp." },
+                { q: "53. I dislike ________ up early every morning.", opts: ["Making", "getting", "painting", "going"], ans: "getting", exp: "1. Dịch câu: 'Tớ không thích thức dậy sớm vào mỗi buổi sáng.'\n2. Phân tích cụm từ: Cụm từ cố định thức dậy buổi sáng là 'get up'. Đứng sau động từ ghét dislike biến thành V-ing: getting up.\n3. Tại sao chọn B? Cụm từ 'getting up early' nghĩa là thức dậy sớm.\n4. Loại A, C, D vì không tạo thành cụm từ có ý nghĩa thức dậy giấc ngủ." },
+                { q: "54. My cousin loves ________ stamps of countries in the world.", opts: ["Making", "collecting", "doing", "buying"], ans: "collecting", exp: "1. Dịch câu: 'Anh họ tớ thích sưu tầm tem từ các quốc gia trên thế giới.'\n2. Phân tích từ vựng: Sở thích liên quan tới những con tem 'stamps' có nguồn gốc phong phú khắp thế giới chính là sưu tầm tem.\n3. Tại sao chọn B? 'collecting' tạo cụm từ sưu tầm tem kinh điển trong tiếng Anh.\n4. Loại A, C, D vì chế tạo tem hay làm tem không phổ biến bằng thú vui sưu tập." },
+                { q: "55. You shouldn't ________ too many computer games.", opts: ["go", "do", "play", "make"], ans: "play", exp: "1. Dịch câu: 'Em không nên chơi quá nhiều trò chơi máy tính đâu.'\n2. Phân tích ngữ pháp: Sau động từ khuyết thiếu 'shouldn't' cần động từ nguyên thể bare-infinitive. Trò chơi điện tử dùng động từ play.\n3. Tại sao chọn C? 'play' nguyên mẫu đi liền computer games.\n4. Loại A, B, D do kết hợp sai động từ chuyên dụng." },
+                { q: "56. Lan loves ________. She plants a lot of flowers and trees.", opts: ["gardening", "watering", "cooking", "watching"], ans: "gardening", exp: "1. Dịch câu: 'Lan yêu thích việc làm vườn. Cô ấy trồng rất nhiều cây và hoa.'\n2. Phân tích hành động: Việc trồng cây 'plants flowers and trees' là hành vi cốt lõi của sở thích làm vườn.\n3. Tại sao chọn A? 'gardening' bao hàm hoạt động trồng hoa trồng cây.\n4. Loại C, D sai hoàn toàn; Loại B (tưới nước) quá nhỏ, làm vườn (gardening) rộng lớn phù hợp làm tên một sở thích tổng quát đứng sau động từ love hơn." },
+                { q: "57. Nick doesn't like ________ shopping with his mother at weekends.", opts: ["going", "making", "walking", "cooking"], ans: "going", exp: "1. Dịch câu: 'Nick không thích đi mua sắm cùng mẹ vào những ngày cuối tuần.'\n2. Phân tích cụm từ: Hoạt động đi mua sắm cố định trong tiếng Anh luôn là: go shopping.\n3. Tại sao chọn A? 'going' ở dạng V-ing đứng sau động từ chỉ ý chí like.\n4. Loại B, C, D vì sai cụm từ thành ngữ cố định." },
+                { q: "58. My grandfather always ________ tea in the morning.", opts: ["Drink", "drinks", "to drink", "drinking"], ans: "drinks", exp: "1. Dịch câu: 'Ông nội tớ luôn luôn uống trà vào mỗi buổi sáng.'\n2. Phân tích ngữ pháp: Câu chứa trạng từ tần suất 'always' chỉ một thói quen bền vững ở hiện tại -> Chia thì Hiện tại đơn. Chủ ngữ 'My grandfather' là ngôi thứ ba số ít (He).\n3. Tại sao chọn B? Động từ 'drinks' được thêm đuôi -s tuân thủ quy tắc chủ ngữ số ít hiện tại đơn.\n4. Loại A vì là dạng nguyên mẫu của chủ ngữ số nhiều; C và D sai cấu trúc chia thì." },
+                { q: "59. Phong adores ________ models. This is the one that he made yesterday.", opts: ["Making", "to make", "makes", "make"], ans: "making", exp: "1. Dịch câu: 'Phong yêu thích việc làm mô hình. Đây chính là cái mà cậu ấy đã hoàn thành ngày hôm qua.'\n2. Phân tích ngữ pháp: Sau động từ yêu thích mãnh liệt 'adore' bắt buộc đi liền danh động từ dạng V-ing.\n3. Tại sao chọn A? 'making' tuân thủ cấu trúc Adore + V-ing.\n4. Loại B, C, D vì vi phạm công thức động từ sau động từ chỉ cảm xúc." },
+                { q: "60. Mai often ________ her homework after dinner.", opts: ["to do", "doing", "do", "does"], ans: "does", exp: "1. Dịch câu: 'Mai thường làm bài tập về nhà sau bữa tối.'\n2. Phân tích ngữ pháp: Trạng từ 'often' chỉ hành động lặp đi lặp lại -> Thì Hiện tại đơn. Chủ ngữ 'Mai' là ngôi thứ ba số ít.\n3. Tại sao chọn D? 'does' là động từ do được chia số ít thích hợp với chủ ngữ Mai.\n4. Loại A, B, C vì không đúng cấu trúc chia động từ chính của câu ở hiện tại đơn." },
+                { q: "61. Hoa dislikes ________ English grammar. She thinks it’s very difficult.", opts: ["Learns", "learning", "learn", "to learn"], ans: "learning", exp: "1. Dịch câu: 'Hoa không thích học ngữ pháp tiếng Anh. Cô ấy nghĩ nó rất khó.'\n2. Phân tích ngữ pháp: Theo sau động từ ghét/không thích 'dislike' là một danh động từ V-ing.\n3. Tại sao chọn B? 'learning' ở dạng đuôi -ing đứng sau dislike hợp lệ.\n4. Loại A, C, D vì không tuân thủ cấu trúc Dislike + V-ing." },
+                { q: "62. I like cartoons, but I don’t ________ them much.", opts: ["Watch", "to watch", "watches", "watching"], ans: "watch", exp: "1. Dịch câu: 'Tớ thích hoạt hình đấy, nhưng tớ không xem chúng nhiều lắm.'\n2. Phân tích ngữ pháp: Đứng sau trợ động từ phủ định 'don't' ở thì hiện tại đơn bắt buộc là một động từ nguyên thể không chia (bare-infinitive).\n3. Tại sao chọn A? 'watch' giữ nguyên thể hoàn toàn chính xác.\n4. Loại B, C, D vì chia đuôi hoặc có to đứng trước là sai ngữ pháp sau trợ động từ." },
+                { q: "63. Do you enjoy ________ stamps?", opts: ["Collecting", "collect", "to collect", "collects"], ans: "collecting", exp: "1. Dịch câu: 'Bạn có thích sưu tầm tem thư không?'\n2. Phân tích ngữ pháp: Sau động từ tận hưởng, yêu thích 'enjoy' bắt buộc đi kèm dạng động từ thêm đuôi -ing (V-ing).\n3. Tại sao chọn A? 'collecting' tuân thủ công thức Enjoy + V-ing.\n4. Loại B, C, D vì sai cấu trúc ngữ pháp sau động từ enjoy." },
+                { q: "64. Nam wants ________ our table tennis club.", opts: ["to join", "joining", "joins", "join"], ans: "to join", exp: "1. Dịch câu: 'Nam muốn tham gia vào câu lạc bộ bóng bàn của chúng tớ.'\n2. Phân tích ngữ pháp tương tự câu 2: Động từ mong muốn 'want' yêu cầu động từ theo sau ở dạng To-V nguyên mẫu.\n3. Tại sao chọn A? 'to join' đúng cấu trúc Want + to-V.\n4. Loại B, C, D vì vi phạm quy tắc chia loại động từ theo sau want." },
+                { q: "65. My mother usually ________ to work by car.", opts: ["go", "to go", "going", "goes"], ans: "goes", exp: "1. Dịch câu: 'Mẹ tớ thường đi làm bằng xe ô tô.'\n2. Phân tích ngữ pháp: Trạng từ thói quen 'usually' đòi hỏi thì Hiện tại đơn. Chủ ngữ 'My mother' là danh từ số ít ngôi thứ ba (She).\n3. Tại sao chọn D? Động từ 'goes' (thêm -es vào sau kết thúc bằng đuôi -o) hợp chuẩn số ít.\n4. Loại A do chưa chia; B và C sai hình thái động từ chính." },
+                { q: "66. Miss Sarah ________ an English teacher at our school.", opts: ["to be", "being", "is", "are"], ans: "is", exp: "1. Dịch câu: 'Cô Sarah là giáo viên tiếng Anh tại ngôi trường của chúng tôi.'\n2. Phân tích ngữ pháp: Câu giới thiệu định danh nghề nghiệp ở hiện tại đơn cần động từ tobe. Chủ ngữ 'Miss Sarah' là số ít.\n3. Tại sao chọn C? Động từ tobe 'is' đi liền chủ ngữ số ít.\n4. Loại D vì dành cho số nhiều; A và B không đóng vai trò làm động từ chính chia thì được." },
+                { q: "67. Her uncle hates horse ________.", opts: ["rides", "ride", "riding", "to ride"], ans: "riding", exp: "1. Dịch câu: 'Bác của cô ấy ghét cưỡi ngựa.'\n2. Phân tích cụm từ: Danh từ ghép chỉ bộ môn cưỡi ngựa là 'horse riding'. Đồng thời sau động từ ghét 'hate' dùng danh động từ V-ing.\n3. Tại sao chọn C? 'riding' kết hợp tạo thành cụm danh từ chỉ sở thích môn thể thao chính xác.\n4. Loại A, B, D không tạo cụm danh từ chuẩn." },
+                { q: "68. My mother ________ my breakfast every morning.", opts: ["cook", "cooks", "is cooking", "cooking"], ans: "cooks", exp: "1. Dịch câu: 'Mẹ tớ nấu bữa sáng cho tớ mỗi buổi sáng.'\n2. Phân tích ngữ pháp: Trạng ngữ lặp đi lặp lại 'every morning' yêu cầu thì Hiện tại đơn. Chủ ngữ 'My mother' là số ít.\n3. Tại sao chọn B? Động từ 'cooks' được thêm đuôi -s chuẩn chỉnh ngữ pháp hiện tại đơn.\n4. Loại A chưa chia; C chỉ hành động đang diễn ra tức thời; D thiếu tobe." },
+                { q: "69. They don’t ________ basketball every day.", opts: ["plays", "play", "playing", "are playing"], ans: "play", exp: "1. Dịch câu: 'Họ không chơi bóng rổ mỗi ngày.'\n2. Phân tích ngữ pháp tương tự câu 62: Sau trợ động từ phủ định hiện tại đơn 'don't' bắt buộc là động từ nguyên mẫu không chia (bare-infinitive).\n3. Tại sao chọn B? 'play' giữ nguyên thể đúng luật.\n4. Loại A, C, D vì biến đổi đuôi động từ sai nguyên tắc." },
+                { q: "70. She ________ in Bangkok.", opts: ["is live", "live", "lives", "living"], ans: "lives", exp: "1. Dịch câu: 'Cô ấy sinh sống ở thành phố Băng Cốc.'\n2. Phân tích ngữ pháp: Câu diễn tả một sự thật hiển nhiên lâu dài ở hiện tại -> Dùng hiện tại đơn. Chủ ngữ 'She' là ngôi thứ ba số ít.\n3. Tại sao chọn C? Động từ 'lives' thêm -s hòa hợp chủ ngữ số ít.\n4. Loại A sai cấu trúc (tobe không đi liền động từ nguyên mẫu); B dành cho chủ ngữ số nhiều; D thiếu tobe." },
+                { q: "71. Mr. Bay ________ his car every weekend.", opts: ["washes", "wash", "is wash", "washing"], ans: "washes", exp: "1. Dịch câu: 'Ông Bảy rửa xe ô tô của ông ấy vào mỗi cuối tuần.'\n2. Phân tích ngữ pháp: Trạng ngữ chu kỳ 'every weekend' chỉ hiện tại đơn. Chủ ngữ 'Mr. Bay' là danh từ số ít.\n3. Tại sao chọn A? Động từ 'washes' kết thúc bằng đuôi -sh nên thêm -es hợp lệ.\n4. Loại B, C, D vì sai quy tắc chia động từ ngôi số ít." },
+                { q: "72. They ________ TV every night.  ", opts: ["watch", "watching", "are watch", "watches"], ans: "watch", exp: "1. Dịch câu: 'Họ xem ti vi mỗi buổi tối.'\n2. Phân tích ngữ pháp: Trạng ngữ 'every night' đòi hỏi thì Hiện tại đơn. Chủ ngữ 'They' là danh từ số nhiều (Họ).\n3. Tại sao chọn A? Động từ 'watch' giữ nguyên mẫu không chia vì đi với chủ ngữ số nhiều.\n4. Loại D vì chỉ dùng cho số ít; B và C sai ngữ pháp cơ bản." },
+                { q: "73. ________ he watch cartoons before he goes to school?", opts: ["Is", "Are", "Do", "Does"], ans: "Does", exp: "1. Dịch câu: 'Cậu ấy có xem phim hoạt hình trước khi tới trường không?'\n2. Phân tích ngữ pháp: Đây là câu hỏi nghi vấn ở thì hiện tại đơn với động từ thường 'watch'. Chủ ngữ là 'he' (ngôi thứ ba số ít) nên ta phải mượn trợ động từ Does lên đầu câu.\n3. Tại sao chọn D? 'Does' là trợ động từ chuẩn xác cho chủ ngữ 'he'.\n4. Loại C (Do) dùng cho số nhiều; A và B không mượn làm trợ động từ đứng trước động từ thường nguyên mẫu." },
+                { q: "74. I ________ to school at 7:30.", opts: ["am go", "goes", "go", "Going"], ans: "go", exp: "1. Dịch câu: 'Tớ đi học vào lúc 7 giờ 30 phút.'\n2. Phân tích ngữ pháp: Câu kể về lịch trình cá nhân hằng ngày -> Thì Hiện tại đơn. Chủ ngữ là đại từ 'I' (ngôi thứ nhất) -> Động từ đi kèm giữ nguyên mẫu.\n3. Tại sao chọn C? Động từ 'go' nguyên thể đi liền chủ ngữ I.\n4. Loại A sai cấu trúc; B dành cho chủ ngữ số ít; D thiếu hệ động từ tobe." },
+                { q: "75. She often ________ a book before going to bed.", opts: ["read", "reads", "is read", "reading"], ans: "reads", exp: "1. Dịch câu: 'Cô ấy thường đọc một cuốn sách trước khi đi ngủ.'\n2. Phân tích ngữ pháp: Tần suất 'often' yêu cầu hiện tại đơn. Chủ ngữ 'She' là số ít.\n3. Tại sao chọn B? Động từ 'reads' được thêm đuôi -s chuẩn chỉnh ngữ pháp hiện tại đơn số ít.\n4. Loại A dành cho số nhiều; C và D vi phạm công thức." },
+                { q: "76. He ________ go to school on Sundays.", opts: ["isn’t", "aren’t", "don’t", "doesn’t"], ans: "doesn’t", exp: "1. Dịch câu: 'Cậu ấy không đi học vào các ngày Chủ nhật.'\n2. Phân tích ngữ pháp: Câu phủ định của động từ thường 'go' ở hiện tại đơn. Chủ ngữ 'He' (số ít) đòi hỏi ta mượn trợ động từ phủ định là 'doesn't'.\n3. Tại sao chọn D? 'doesn't' kết hợp động từ nguyên mẫu go phía sau tạo thể phủ định hoàn chỉnh.\n4. Loại C (don't) dành cho số nhiều; A và B (tobe) không đứng trước động từ thường nguyên thể." }
+            ],
+            ex7: [
+                { q: "1. Jenny has a(n) ______________ hobby.", ans: "unusual", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Jenny có một sở thích kỳ lạ/khác thường.'\n2. Phân tích ngữ pháp: Đứng trước danh từ 'hobby' và đứng sau mạo từ gợi ý 'a(n)' bắt buộc phải là một tính từ bắt đầu bằng một nguyên âm (u, e, o, a, i).\n3. Tại sao chọn unusual? 'unusual' (adj) nghĩa là lạ thường, bắt đầu bằng chữ 'u' khớp hoàn toàn với mạo từ 'an'.\n4. Các đáp án khác loại vì không phải tính từ bổ nghĩa hoặc không bắt đầu bằng nguyên âm." },
+                { q: "2. My brother likes ______________ bread for me.", ans: "making", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Anh trai tớ thích làm bánh mì cho tớ ăn.'\n2. Phân tích ngữ pháp: Sau động từ 'likes' cần dạng V-ing. Đối với đồ ăn nướng nhào bột như bánh mì (bread), hành động tạo ra nó dùng động từ make.\n3. Tại sao chọn making? 'making bread' nghĩa là làm/nướng bánh mì.\n4. Các từ khác không hợp nghĩa hành động tạo tác thực phẩm." },
+                { q: "3. When I have free time, I often make ______________ with my friends.", ans: "pottery", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Khi tớ có thời gian rảnh, tớ thường làm đồ gốm cùng với bạn bè.'\n2. Phân tích cụm từ tương tự câu 5 của Ex 6: Động từ 'make' đi kèm danh từ gốm tạo thành cụm 'make pottery'.\n3. Tại sao chọn pottery? 'pottery' (n) nghĩa là đồ gốm, tạo cụm từ đúng thuật ngữ.\n4. Các từ khác ghép vào bị vô nghĩa sau động từ make." },
+                { q: "4. Mark often goes to dancing club ______________ a week.", ans: "twice", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Mark thường đến câu lạc bộ khiêu vũ hai lần một tuần.'\n2. Phân tích cụm từ: Cuối câu có trạng từ chỉ tần suất kết hợp '... a week' -> Cần từ chỉ số lần.\n3. Tại sao chọn twice? 'twice a week' có nghĩa là hai lần một tuần, trạng từ chỉ tần suất cực chuẩn.\n4. Các từ còn lại không có chức năng chỉ tần suất số lần." },
+                { q: "5. Would you like to ______________ camping with me?", ans: "go", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Cậu có muốn đi cắm trại cùng tớ không?'\n2. Phân tích ngữ pháp tương tự câu 44 Ex 6: Cấu trúc rủ rê 'Would you like + to-V'. Hoạt động 'camping' đi với động từ nguyên mẫu go.\n3. Tại sao chọn go? 'go camping' tạo thành cụm từ đi cắm trại.\n4. Các từ khác sai cấu trúc ngữ nghĩa." },
+                { q: "6. What is your dress made ______________?", ans: "of", opts: ["twice", "pottery", "unusual", "making", "of", "go"], exp: "1. Dịch câu: 'Chiếc váy của bạn được làm bằng chất liệu gì thế?'\n2. Phân tích cấu trúc: Cấu trúc bị động về chất liệu: To be made of + vật liệu (Được làm bằng gì - nhìn thấy rõ chất liệu nguyên bản không bị biến đổi hóa học).\n3. Tại sao chọn of? Giới từ 'of' đi sau made tạo nên câu hỏi chất liệu cấu thành trang phục.\n4. Các từ khác sai giới từ cấu trúc." }
+            ],
+            ex8: [
+                { q: "1. She (am / is) an intelligent girl.", opts: ["am", "is"], ans: "is", exp: "1. Dịch: 'Cô ấy là một cô gái thông minh.'\n2. Giải thích: Chủ ngữ 'She' là ngôi thứ ba số ít, đi với động từ tobe là 'is'. Trợ động từ 'am' chỉ đi duy nhất với chủ ngữ 'I'." },
+                { q: "2. They (live / lives) in a small village in the countryside.", opts: ["live", "lives"], ans: "live", exp: "1. Dịch: 'Họ sống ở một ngôi làng nhỏ vùng nông thôn.'\n2. Giải thích: Chủ ngữ 'They' (Họ) là danh từ số nhiều, động từ chính ở thì Hiện tại đơn giữ nguyên mẫu không chia là 'live'." },
+                { q: "3. Mai (doesn't like / don't like) watching comedies.", opts: ["doesn't like", "don't like"], ans: "doesn't like", exp: "1. Dịch: 'Mai không thích xem phim hài.'\n2. Giải thích: Chủ ngữ 'Mai' là tên riêng một người (số ít), câu phủ định hiện tại đơn phải mượn trợ động từ 'doesn't like'." },
+                { q: "4. The students (aren’t / isn’t) in the classroom now.", opts: ["aren’t", "isn’t"], ans: "aren’t", exp: "1. Dịch: 'Các học sinh hiện không có ở trong lớp học.'\n2. Giải thích: Chủ ngữ 'The students' có đuôi -s là danh từ số nhiều, đi với động từ tobe phủ định là 'aren't'." },
+                { q: "5. The match (end / ends) at 3:15 p.m.", opts: ["end", "ends"], ans: "ends", exp: "1. Dịch: 'Trận đấu kết thúc vào lúc 3 giờ 15 phút chiều.'\n2. Giải thích: Trận đấu 'The match' là danh từ số ít, động từ ở thì hiện tại đơn diễn tả lịch trình thời gian biểu phải thêm đuôi -s thành 'ends'." },
+                { q: "6. I (is / am) very busy right now.", opts: ["is", "am"], ans: "am", exp: "1. Dịch: 'Bây giờ tớ đang rất bận rộn.'\n2. Giải thích: Chủ ngữ 'I' luôn luôn đi kèm với động từ tobe ở hiện tại là 'am'." },
+                { q: "7. You (don't often do / don't often does) the housework.", opts: ["don't often do", "don't often does"], ans: "don't often do", exp: "1. Dịch: 'Bạn không thường xuyên làm việc nhà.'\n2. Giải thích: Chủ ngữ 'You' mượn trợ động từ số nhiều 'don't'. Sau trợ động từ, động từ chính bắt buộc ở dạng nguyên mẫu không chia là 'do'." },
+                { q: "8. Jane never (go / goes) out at midnight.", opts: ["go", "goes"], ans: "goes", exp: "1. Dịch: 'Jane không bao giờ đi ra ngoài vào lúc nửa đêm.'\n2. Giải thích: Chủ ngữ 'Jane' là số ít, động từ ở hiện tại đơn phải chia thêm đuôi. Từ 'go' kết thúc bằng nguyên âm 'o' nên ta thêm -es thành 'goes'." },
+                { q: "9. Which class (you are / are you) in this year?", opts: ["you are", "are you"], ans: "are you", exp: "1. Dịch: 'Năm nay bạn học lớp nào thế?'\n2. Giải thích: Đây là câu hỏi có từ để hỏi 'Which class', cấu trúc bắt buộc phải đảo động từ tobe 'are' lên trước chủ ngữ 'you' thành 'are you'." },
+                { q: "10. (Are they / They are) on the way to school?", opts: ["Are they", "They are"], ans: "Are they", exp: "1. Dịch: 'Có phải họ đang trên đường tới trường không?'\n2. Giải thích: Cuối câu có dấu chấm hỏi (?), đây là câu hỏi nghi vấn Yes/No, bắt buộc phải đảo động từ tobe 'Are' lên trước chủ ngữ 'they'." },
+                { q: "11. Tom (likes / hates) doing homework. He is lazy.", opts: ["likes", "hates"], ans: "hates", exp: "1. Dịch: 'Tom ghét làm bài tập về nhà. Cậu ấy rất lười biếng.'\n2. Giải thích: Vế sau giải thích nguyên nhân 'He is lazy' (Cậu ấy lười lắm) chứng tỏ cậu ấy phải ghét (hates) việc làm bài tập chứ không thể thích." },
+                { q: "12. She (fancies / doesn't fancy) the idea of staying out too late. It's too dangerous.", opts: ["fancies", "doesn't fancy"], ans: "doesn't fancy", exp: "1. Dịch: 'Cô ấy không thích ý tưởng ở ngoài quá muộn. Việc đó quá nguy hiểm.'\n2. Giải thích: Câu sau cảnh báo 'It's too dangerous' (Quá nguy hiểm) nên hành động đi chơi muộn phải là không thích (doesn't fancy)." },
+                { q: "13. Most girls (detest / like) cockroaches.", opts: ["detest", "like"], ans: "detest", exp: "1. Dịch: 'Hầu hết các cô gái đều ghét cay ghét đắng loài gián.'\n2. Giải thích: Loài gián 'cockroaches' là côn trùng gây sợ hãi mất vệ sinh, theo tâm lý chung số đông sẽ ghét cay đắng (detest) chứ không thích." },
+                { q: "14. Tom (likes / doesn't like) making models. He never does it.", opts: ["likes", "doesn't like"], ans: "doesn't like", exp: "1. Dịch: 'Tom không thích làm mô hình. Cậu ấy chẳng bao giờ làm việc đó cả.'\n2. Giải thích: Dựa vào trạng từ tần suất tuyệt đối 'never does it' (không bao giờ làm) suy ra Tom không hề thích (doesn't like)." },
+                { q: "15. We (enjoy / hate) spending time with Jane. She is very interesting.", opts: ["enjoy", "hate"], ans: "enjoy", exp: "1. Dịch: 'Chúng tớ thích dành thời gian ở bên Jane. Cô ấy cực kỳ thú vị.'\n2. Giải thích: Vế sau khen ngợi 'She is very interesting' (Cô ấy rất thú vị/cuốn hút) chứng tỏ mọi người phải yêu thích thích thú (enjoy) khi ở bên cô ấy." },
+                { q: "16. Many people (dislike / enjoy) doing morning exercises. It is good for your health.", opts: ["dislike", "enjoy"], ans: "enjoy", exp: "1. Dịch: 'Nhiều người thích tập thể dục buổi sáng. Nó rất tốt cho sức khỏe.'\n2. Giải thích: Lợi ích 'good for health' (tốt cho sức khỏe) là một điều tích cực, phù hợp với động từ mang tính tích cực là 'enjoy' (thích/tận hưởng)." },
+                { q: "17. Mary always (adores / dislikes) her brother. She often plays with him.", opts: ["adores", "dislikes"], ans: "adores", exp: "1. Dịch: 'Mary luôn yêu quý em trai mình. Cô ấy thường chơi đùa cùng cậu bé.'\n2. Giải thích: Hành động 'often plays with him' (thường xuyên chơi cùng) chứng tỏ mối quan hệ rất khăng khít, yêu mến (adores)." },
+                { q: "18. I (hate / like) drinking coffee. It is too bitter.", opts: ["hate", "like"], ans: "hate", exp: "1. Dịch: 'Tớ ghét uống cà phê. Nó quá đắng.'\n2. Giải thích: Tính từ 'too bitter' nghĩa là quá đắng (một vị khó uống với trẻ con), lý do này dẫn đến việc ghét bỏ (hate)." },
+                { q: "19. I don't (fancy / hate) collecting stamps. I think it's boring.", opts: ["fancy", "hate"], ans: "fancy", exp: "1. Dịch: 'Tớ không thích sưu tầm tem. Tớ nghĩ bộ môn này thật tẻ nhạt.'\n2. Giải thích: Phía trước đã có sẵn trợ động từ phủ định 'don't', nếu chọn 'hate' sẽ thành phủ định kép sai ngữ pháp ngữ nghĩa. Cụm 'don't fancy' nghĩa là không thích, đồng nghĩa với 'think it's boring' ở vế sau." },
+                { q: "20. They really (enjoy / dislike) talking with others. They are best friends.", opts: ["enjoy", "dislike"], ans: "enjoy", exp: "1. Dịch: 'Họ thực sự thích trò chuyện cùng nhau. Họ là những người bạn thân nhất của nhau mà.'\n2. Giải thích: Vì họ là bạn thân thiết 'best friends' nên họ sẽ vô cùng thích thú (enjoy) việc trò chuyện chia sẻ tâm sự cùng nhau." }
+            ],
+            ex9: [
+                { q: "1. Peter ______________ very hard. He never gets high scores. (not study)", ans: "doesn't study", opts: ["don't study", "doesn't study", "studies", "not study"], exp: "1. Dịch: 'Peter không học hành chăm chỉ lắm. Cậu ấy chẳng bao giờ được điểm cao.'\n2. Giải thích: Yêu cầu chia phủ định (not study). Chủ ngữ 'Peter' số ít nên ta mượn trợ động từ 'doesn't' và hoàn trả động từ về nguyên mẫu thành 'doesn't study'." },
+                { q: "2. I like oranges and she ______________ apples. (like)", ans: "likes", opts: ["like", "likes", "liking", "to like"], exp: "1. Dịch: 'Tớ thích những quả cam còn cô ấy thì thích những quả táo.'\n2. Giải thích: Vế hai chủ ngữ là 'she' (ngôi thứ ba số ít), động từ 'like' ở thì hiện tại đơn phải thêm đuôi -s thành 'likes'." },
+                { q: "3. My mom and my sister ______________ lunch every day. (cook)", ans: "cook", opts: ["cook", "cooks", "cooking", "cooked"], exp: "1. Dịch: 'Mẹ tớ và chị gái tớ nấu bữa trưa mỗi ngày.'\n2. Giải thích: Chủ ngữ gồm hai người 'My mom and my sister' kết hợp lại thành chủ ngữ số nhiều (tương đương đại từ They), do đó động từ chính ở hiện tại đơn giữ nguyên mẫu không thêm đuôi là 'cook'." },
+                { q: "4. They ______________ breakfast together every morning. (have)", ans: "have", opts: ["has", "have", "having", "had"], exp: "1. Dịch: 'Họ ăn bữa sáng cùng nhau vào mỗi buổi sáng.'\n2. Giải thích: Chủ ngữ 'They' là số nhiều, động từ gốc 'have' được giữ nguyên thể ở thì hiện tại đơn." },
+                { q: "5. They ______________ eat out once a week. (eat) *Lưu ý đề bài gốc: 'They ______ eat out once a week. (eat)'*", ans: "eat", opts: ["eat", "eats", "eating", "ate"], exp: "1. Dịch: 'Họ đi ăn tiệm ngoài hàng một lần một tuần.'\n2. Giải thích: Trạng từ 'once a week' chỉ tần suất hiện tại đơn. Chủ ngữ 'They' số nhiều nên động từ 'eat' giữ nguyên mẫu." },
+                { q: "6. My father always ______________ delicious meals. (make)", ans: "makes", opts: ["make", "makes", "making", "made"], exp: "1. Dịch: 'Bố tớ luôn luôn nấu những bữa ăn ngon tuyệt.'\n2. Giải thích: Chủ ngữ 'My father' là danh từ số ít ngôi thứ ba, động từ 'make' ở thì hiện tại đơn phải chia bằng cách thêm -s thành 'makes'." },
+                { q: "7. Tom ______________ vegetables. (not eat)", ans: "doesn't eat", opts: ["don't eat", "doesn't eat", "isn't eat", "not eat"], exp: "1. Dịch: 'Tom không ăn rau xanh.'\n2. Giải thích: Thể phủ định của thì hiện tại đơn với chủ ngữ số ít 'Tom' -> Mượn trợ động từ 'doesn't' kết hợp động từ nguyên thể 'eat' thành 'doesn't eat'." },
+                { q: "8. Rosie ______________ shopping every week. (go)", ans: "goes", opts: ["go", "goes", "going", "went"], exp: "1. Dịch: 'Rosie đi mua sắm mỗi tuần.'\n2. Giải thích: Chủ ngữ 'Rosie' là tên riêng một người (số ít), động từ kết thúc bằng chữ 'o' (go) ta chia ở hiện tại đơn bằng cách thêm -es thành 'goes'." },
+                { q: "9. ______________ Miley and David ______________ to work by bus every day? (go)", ans: "Do - go", opts: ["Does - go", "Do - go", "Are - going", "Do - goes"], exp: "1. Dịch: 'Có phải Miley và David đi làm bằng xe buýt hằng ngày không?'\n2. Giải thích: Đây là câu hỏi nghi vấn của động từ thường 'go'. Chủ ngữ gồm hai người 'Miley and David' (số nhiều) nên đầu câu ta mượn trợ động từ 'Do', động từ chính giữ nguyên thể 'go'." },
+                { q: "10. ______________ you ______________ parents with your decision? (agree) *Mẫu câu gốc câu hỏi hiện tại đơn*", ans: "Do - agree", opts: ["Does - agree", "Do - agree", "Are - agree", "Do - agrees"], exp: "1. Dịch: 'Bạn có đồng ý với bố mẹ về quyết định của mình không?'\n2. Giải thích: Câu hỏi với chủ ngữ 'you' (ngôi thứ hai) -> Mượn trợ động từ 'Do' đứng đầu, động từ chính giữ nguyên 'agree'." },
+                { q: "11. It ______________ a fact that smart phone ______________ us a lot in our life. (be)/ (help)", ans: "is - helps", opts: ["is - help", "is - helps", "be - helps", "are - help"], exp: "1. Dịch: 'Có một sự thật là điện thoại thông minh giúp ích cho chúng ta rất nhiều trong cuộc sống.'\n2. Giải thích: Vế đầu chủ ngữ giả số ít 'It' đi với tobe là 'is'. Vế sau danh từ 'smart phone' ở dạng số ít, nên động từ 'help' ở hiện tại đơn phải thêm đuôi -s thành 'helps'." },
+                { q: "12. I often ______________ to some of my favorite destinations every summer. (travel)", ans: "travel", opts: ["travel", "travels", "traveling", "traveled"], exp: "1. Dịch: 'Tớ thường đi du lịch tới một vài địa điểm yêu thích vào mỗi mùa hè.'\n2. Giải thích: Trạng từ 'every summer' cấu thành thì hiện tại đơn. Chủ ngữ ngôi thứ nhất 'I' đi với động từ nguyên mẫu không chia là 'travel'." },
+                { q: "13. Our Math lesson usually ______________ at 4.00 p.m. (finish)", ans: "finishes", opts: ["finish", "finishes", "finishing", "finished"], exp: "1. Dịch: 'Tiết học Toán của chúng tớ thường kết thúc vào lúc 4 giờ chiều.'\n2. Giải thích: Chủ ngữ 'Our Math lesson' số ít (chỉ một tiết học). Động từ 'finish' kết thúc bằng đuôi có âm gió '-sh' nên ta phải thêm -es thành 'finishes'." },
+                { q: "14. The reason why Susan ______________ meat is that she ______________ a vegetarian. (not eat)/ (be)", ans: "doesn’t eat - is", opts: ["don't eat - is", "doesn’t eat - is", "doesn't eat - be", "not eat - is"], exp: "1. Dịch: 'Lý do tại sao Susan không ăn thịt là vì cô ấy là một người ăn chay.'\n2. Giải thích: Susan là số ít, thể phủ định mượn 'doesn't eat'. Vế sau chủ ngữ 'she' số ít đi với động từ tobe tương ứng là 'is'." },
+                { q: "15. People in Ho Chi Minh City ______________ very friendly and they ______________ a lot. (be)/ (smile)", ans: "are - smile", opts: ["is - smile", "are - smiles", "are - smile", "be - smile"], exp: "1. Dịch: 'Người dân ở Thành phố Hồ Chí Minh rất thân thiện và họ cười rất nhiều.'\n2. Giải thích: Chủ ngữ tập hợp 'People' (Mọi người) luôn là danh từ số nhiều, vì vậy động từ tobe đi kèm phải là 'are' và động từ thường 'smile' ở vế sau giữ nguyên mẫu không chia." },
+                { q: "16. The flight ______________ at 6 a.m every Thursday. (start)", ans: "starts", opts: ["start", "starts", "starting", "started"], exp: "1. Dịch: 'Chuyến bay khởi hành vào lúc 6 giờ sáng mỗi thứ Năm.'\n2. Giải thích: Lịch trình máy bay cố định chia hiện tại đơn. Chủ ngữ 'The flight' ở dạng số ít nên động từ 'start' chia thêm đuôi -s thành 'starts'." },
+                { q: "17. Where ______________ that guy ______________ from? (come)", ans: "does - come", opts: ["do - come", "does - come", "does - comes", "is - come"], exp: "1. Dịch: 'Anh chàng kia đến từ đâu thế?'\n2. Giải thích: Câu hỏi WH-question hiện tại đơn với động từ thường 'come'. Chủ ngữ 'that guy' (anh chàng đó - một người số ít) -> Mượn trợ động từ 'does' đứng trước, động từ chính trả về nguyên thể 'come'." },
+                { q: "18. Where ______________ your mother ______________? (work)", ans: "does - work", opts: ["do - work", "does - work", "is - work", "does - works"], exp: "1. Dịch: 'Mẹ của bạn làm việc ở đâu?'\n2. Giải thích: Tương tự câu 17, chủ ngữ 'your mother' là số ít ngôi thứ ba -> Mượn trợ động từ 'does' đặt trước chủ ngữ, động từ hành động 'work' giữ nguyên thể không chia." },
+                { q: "19. James ______________ usually ______________ the trees. (not water)", ans: "doesn’t - water", opts: ["don't - water", "doesn’t - water", "isn't - water", "doesn't - waters"], exp: "1. Dịch: 'James không thường xuyên tưới nước cho cây cối.'\n2. Giải thích: Phủ định hiện tại đơn của danh từ riêng số ít 'James' -> Mượn trợ động từ 'doesn't' đặt trước trạng từ trạng thái 'usually', động từ chính 'water' giữ nguyên mẫu." },
+                { q: "20. Who ______________ the washing in your house? (do)", ans: "does", opts: ["do", "does", "doing", "did"], exp: "1. Dịch: 'Ai là người giặt giũ quần áo ở trong nhà của bạn?'\n2. Giải thích: Trong câu hỏi chủ ngữ 'Who' đóng vai trò là đại từ hỏi chưa rõ danh tính, theo quy chuẩn ngữ pháp tiếng Anh luôn mặc định giả định ngôi số ít -> Động từ 'do' chia ở dạng số ít thêm đuôi -es thành 'does'." }
+            ],
+            ex10: [
+                { q: "1. My brother likes ______________ coins very much. (collect)", ans: "collecting", opts: ["collects", "collecting", "collect", "to collect"], exp: "1. Dịch: 'Anh trai tớ rất thích sưu tầm tiền xu.'\n2. Giải thích: Yêu cầu đề bài bắt buộc sử dụng cấu trúc danh động từ đuôi –ing form. Động từ 'collect' thêm -ing thành 'collecting' đứng sau động từ chỉ sở thích likes." },
+                { q: "2. He enjoys ______________ his bike to school. (have) *Lưu ý đề bài gốc dùng động từ chia dạng (have) cho hành động đi xe*", ans: "having", opts: ["has", "having", "have", "to have"], exp: "1. Dịch: 'Cậu ấy thích đi/sở hữu chiếc xe đạp đạp tới trường.'\n2. Giải thích: Theo đúng yêu cầu dùng cấu trúc đuôi –ing form cho động từ trong ngoặc, 'have' bỏ đuôi 'e' thêm -ing biến đổi thành 'having' sau động từ enjoy." },
+                { q: "3. Her children dislike ______________ every morning. (jog)", ans: "jogging", opts: ["jogs", "jogging", "jog", "joged"], exp: "1. Dịch: 'Con cái của cô ấy không thích chạy bộ mỗi buổi sáng.'\n2. Giải thích: Động từ gốc 'jog' kết thúc bằng một phụ âm trước đó là một nguyên âm ngắn, theo quy tắc khi thêm đuôi -ing ta phải gấp đôi phụ âm cuối 'g' thành 'jogging'." },
+                { q: "4. He likes ______________ magazines. (read)", ans: "reading", opts: ["reads", "reading", "read", "to read"], exp: "1. Dịch: 'Cậu ấy thích đọc các cuốn tạp chí.'\n2. Giải thích: Biến đổi động từ 'read' sang dạng tinh giản đuôi -ing form tạo thành từ 'reading' đứng sau động từ chỉ sở thích likes." },
+                { q: "5. They adore ______________ dollhouses. (build)", ans: "building", opts: ["builds", "building", "build", "to build"], exp: "1. Dịch: 'Họ cực kỳ yêu thích việc xây dựng nhà búp bê.'\n2. Giải thích: Chuyển động từ 'build' thành dạng đuôi –ing theo đề bài yêu cầu thành cụm 'building' đứng sau adore." },
+                { q: "6. He doesn't like ______________ on the phone. (talk)", ans: "talking", opts: ["talks", "talking", "talk", "to talk"], exp: "1. Dịch: 'Cậu ấy không thích nói chuyện qua điện thoại.'\n2. Giải thích: Thêm đuôi -ing vào động từ 'talk' tạo thành danh động từ 'talking' đứng sau cấu trúc phủ định sở thích doesn't like." },
+                { q: "7. They don’t like ______________. (cook)", ans: "cooking", opts: ["cooks", "cooking", "cook", "to cook"], exp: "1. Dịch: 'Họ không thích nấu ăn.'\n2. Giải thích: Động từ 'cook' chuyển sang cấu trúc danh động từ –ing form theo yêu cầu tổng thể đề bài thành 'cooking'." },
+                { q: "8. She likes ______________ films. (watch)", ans: "watching", opts: ["watches", "watching", "watch", "to watch"], exp: "1. Dịch: 'Cô ấy thích xem phim truyện.'\n2. Giải thích: Động từ 'watch' chuyển sang dạng đuôi -ing tạo thành tính từ/danh động từ 'watching' đứng sau động từ chỉ sở thích likes." },
+                { q: "9. I like ______________ up early in summer. (get)", ans: "getting", opts: ["gets", "getting", "get", "to get"], exp: "1. Dịch: 'Tớ thích thức dậy sớm vào mùa hè.'\n2. Giải thích: Giống từ jog ở câu 3, động từ 'get' có cấu trúc nguyên âm ngắn kẹp giữa, ta gấp đôi phụ âm cuối 't' trước khi thêm -ing thành 'getting'." },
+                { q: "10. Do Hoa and her classmate enjoy ______________ English? (learn)", ans: "learning", opts: ["learns", "learning", "learn", "to learn"], exp: "1. Dịch: 'Hoa và bạn cùng lớp của cô ấy có thích học tiếng Anh không?'\n2. Giải thích: Động từ 'learn' thêm đuôi -ing tạo thành danh động từ 'learning' đứng sau động từ chỉ sự tận hưởng đam mê enjoy." }
+            ],
+            ex11: [
+                { q: "1. My mother <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>is interested in</span> doing yoga after work.", opts: ["feels", "dislikes", "enjoys", "hates"], ans: "enjoys", exp: "1. Dịch câu: 'Mẹ tớ thích tập yoga sau giờ làm việc.'\n2. Phân tích từ đồng nghĩa: Cụm từ 'be interested in' có nghĩa là quan tâm, yêu thích một hoạt động nào đó.\n3. Phân tích 4 đáp án: A. cảm thấy; B. ghét; C. thích thú/tận hưởng (enjoys); D. ghét cay đắng.\n4. Tại sao chọn C? Vì 'enjoys' mang ý nghĩa tích cực biểu thị sở thích tương đồng hoàn toàn với cụm từ gạch chân." },
+                { q: "2. What do you usually do to <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>keep fit</span> every day?", opts: ["relaxing", "strong", "stress", "stay health"], ans: "stay health", exp: "1. Dịch câu: 'Bạn thường làm gì để giữ gìn vóc dáng cân đối khỏe mạnh hằng ngày?'\n2. Phân tích từ đồng nghĩa: Thành ngữ 'keep fit' nghĩa là giữ cơ thể khỏe mạnh, thon gọn, cân đối.\n3. Phân tích đáp án: Cụm từ 'stay health' (đúng gốc ngữ cảnh nghĩa tương đương là stay healthy) chỉ trạng thái duy trì sức khỏe tốt.\n4. Tại sao chọn D? Vì cùng nằm trong trường nghĩa bảo vệ thể trạng sức khỏe tốt." },
+                { q: "3. My family members have different <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>hobbies</span>.", opts: ["cares", "interests", "concerns", "activities"], ans: "interests", exp: "1. Dịch câu: 'Các thành viên trong gia đình tớ có những sở thích khác nhau.'\n2. Phân tích từ đồng nghĩa: Danh từ số nhiều 'hobbies' nghĩa là các sở thích cá nhân lúc rảnh rỗi.\n3. Phân tích đáp án: Danh từ 'interests' mang nghĩa là những điều quan tâm, sự hứng thú, sở thích cá nhân.\n4. Tại sao chọn B? Vì 'interests' đồng nghĩa trực tiếp phổ biến nhất với 'hobbies' trong chủ đề này." },
+                { q: "4. We go camping <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>twice</span> a week.", opts: ["two times", "two", "second", "secondly"], ans: "two times", exp: "1. Dịch câu: 'Chúng tớ đi cắm trại hai lần một tuần.'\n2. Phân tích từ đồng nghĩa: Trạng từ tần suất số lần 'twice' nghĩa là hai lần.\n3. Phân tích đáp án: Cụm từ 'two times' cũng mang nghĩa chính xác là hai lần.\n4. Tại sao chọn A? Vì 'twice' và 'two times' có giá trị sử dụng và ngữ nghĩa thay thế hoàn hảo cho nhau." },
+                { q: "5. Gardening can help me <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>reduce stress</span>.", opts: ["decrease", "tired", "relax", "tense"], ans: "relax", exp: "1. Dịch câu: 'Làm vườn có thể giúp tớ giảm bớt căng thẳng đầu óc.'\n2. Phân tích từ đồng nghĩa: Cụm từ 'reduce stress' nghĩa là giảm áp lực, bớt lo âu mệt mỏi tinh thần.\n3. Phân tích đáp án: Động từ 'relax' nghĩa là thư giãn tinh thần, xả hơi thả lỏng.\n4. Tại sao chọn C? Khi chúng ta giảm được stress đồng nghĩa với việc chúng ta được thư giãn (relax), đây là câu chọn đáp án sát nghĩa nhất trong ngữ cảnh bài làm." }
+            ],
+            ex12: [
+                { q: "1. I <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>always</span> go jogging in the evening.", opts: ["often", "never", "sometimes", "seldom"], ans: "never", exp: "1. Dịch câu: 'Tớ luôn luôn chạy bộ vào buổi tối.'\n2. Phân tích từ trái nghĩa: Trạng từ tần suất tuyệt đối 'always' nghĩa là luôn luôn (100% số lần thực hiện).\n3. Phân tích đáp án trái nghĩa: Trạng từ phủ định tuyệt đối 'never' nghĩa là không bao giờ (0% số lần thực hiện).\n4. Tại sao chọn B? Vì 'luôn luôn' (always) đối lập trực diện hoàn toàn với 'không bao giờ' (never)." },
+                { q: "2. My drawing class <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>starts</span> at 5 p.m every Friday.", opts: ["continues", "originates", "begins", "ends"], ans: "ends", exp: "1. Dịch câu: 'Lớp học vẽ của tớ bắt đầu vào lúc 5 giờ chiều mỗi thứ Sáu.'\n2. Phân tích từ trái nghĩa: Động từ 'starts' nghĩa là bắt đầu, khởi khởi nguồn.\n3. Phân tích đáp án: Động từ 'ends' có nghĩa là kết thúc, chấm dứt khép lại.\n4. Tại sao chọn D? Vì hành động 'bắt đầu' hành trình đối nghịch hoàn toàn với hành động 'kết thúc' (ends)." },
+                { q: "3. Are you <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>good</span> at playing football?", opts: ["badly", "well", "bad", "excellent"], ans: "bad", exp: "1. Dịch câu: 'Cậu có giỏi chơi môn bóng đá không?'\n2. Phân tích từ trái nghĩa: Tính từ 'good' trong cấu trúc 'good at' nghĩa là giỏi, xuất sắc, điêu luyện về mảng nào đó.\n3. Phân tích đáp án: Tính từ 'bad' nghĩa là tệ, dở, yếu kém.\n4. Tại sao chọn C? 'Giỏi' trái nghĩa trực tiếp với 'Tệ/Dở' (bad). Loại A vì badly là trạng từ không đứng sau cấu trúc tobe + adj ở vị trí này." },
+                { q: "4. He has <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>a lot of</span> coins from many countries.", opts: ["a few", "some", "a variety of", "much"], ans: "a few", exp: "1. Dịch câu: 'Cậu ấy có rất nhiều đồng xu đến từ nhiều quốc gia.'\n2. Phân tích từ trái nghĩa: Cụm chỉ số lượng 'a lot of' đi với danh từ đếm được số nhiều (coins) mang nghĩa là rất nhiều lượng lớn.\n3. Phân tích đáp án: Cụm lượng từ 'a few' đi với danh từ đếm được số nhiều có nghĩa là một chút, một vài lượng rất ít ỏi.\n4. Tại sao chọn A? Vì 'nhiều' đối lập với 'ít ỏi' (a few)." },
+                { q: "5. My sister prefers <span style='color:#D63031; text-decoration:underline; font-weight:bold;'>outdoor</span> activities.", opts: ["indoor", "outside", "away", "in"], ans: "indoor", exp: "1. Dịch câu: 'Em gái tớ thích những hoạt động diễn ra ngoài trời hơn.'\n2. Phân tích từ trái nghĩa: Tính từ 'outdoor' nghĩa là ngoài trời, thuộc về không gian thiên nhiên thoáng đãng ngoài nhà.\n3. Phân tích đáp án: Tính từ 'indoor' nghĩa là trong nhà, bên dưới mái che không gian kín.\n4. Tại sao chọn A? Vì 'ngoài trời' (outdoor) và 'trong nhà' (indoor) là cặp từ trái nghĩa kinh điển đối lập nhau." }
+            ],
+            ex13: [
+                { q: "1. Science books are very ______________ for our study of the world. (use)", ans: "useful", opts: ["use", "useful", "useless", "using"], exp: "1. Dịch: 'Những cuốn sách khoa học thì rất có ích cho việc nghiên cứu thế giới của chúng ta.'\n2. Phân tích ngữ pháp: Đứng sau trạng từ chỉ mức độ 'very' và hệ từ 'are' ta cần một tính từ. Gốc từ là động từ/danh từ 'use' (sử dụng).\n3. Tại sao chọn useful? Tính từ 'useful' mang ý nghĩa tích cực là có ích, hữu dụng, phù hợp tính chất sách khoa học giúp ích cho học tập.\n4. Loại C vì 'useless' nghĩa tiêu cực là vô ích." },
+                { q: "2. Ba is a famous stamp ______________. (collect)", opts: ["collection", "collector", "collecting", "collects"], ans: "collector", exp: "1. Dịch: 'Ba là một nhà sưu tầm tem thư nổi tiếng.'\n2. Phân tích ngữ pháp: Đứng sau cụm danh/tính từ vị trí bổ nghĩa 'a famous stamp ...' ta cần một danh từ chỉ người làm nghề/sở thích đó để làm danh từ chính của cụm.\n3. Tại sao chọn collector? Danh từ 'collector' cấu tạo từ gốc động từ collect thêm đuôi -or để chỉ người sưu tầm, kết hợp tạo cụm 'stamp collector' nghĩa là nhà sưu tầm tem.\n4. Loại A (collection) vì là bộ sưu tập chỉ vật thể, không dùng định danh cho tên người như Ba." },
+                { q: "3. The most popular after-school ______________ in Viet Nam are football and badminton. (act)", opts: ["activities", "activity", "action", "actors"], ans: "activities", exp: "1. Dịch: 'Những hoạt động sau giờ học phổ biến nhất ở Việt Nam là bóng đá và cầu lông.'\n2. Phân tích ngữ pháp: Động từ tobe chính phía sau chia ở số nhiều là 'are', chứng tỏ danh từ làm chủ ngữ chính ở đầu câu bắt buộc phải ở hình thái số nhiều. Gốc từ trong ngoặc là 'act'.\n3. Tại sao chọn activities? Danh từ 'activities' là dạng số nhiều của activity (hoạt động), tạo cụm 'after-school activities' (các hoạt động sau giờ học) cực kỳ hợp lý.\n4. Loại B vì là số ít vi phạm hòa hợp động từ tobe 'are'." },
+                { q: "4. The city library has over 60 ______________. (employ)", opts: ["employees", "employer", "employment", "employing"], ans: "employees", exp: "1. Dịch: 'Thư viện thành phố có hơn 60 nhân viên làm việc.'\n2. Phân tích ngữ pháp: Đứng sau số đếm số lượng lớn 'over 60' (hơn 60) bắt buộc phải là một danh từ đếm được số nhiều (có đuôi -s/-es). Gốc từ là 'employ' (thuê mướn).\n3. Tại sao chọn employees? Danh từ 'employees' chỉ người lao động, người làm công ăn lương ở dạng số nhiều phản ánh đúng số lượng người vận hành thư viện.\n4. Loại B vì employer là ông chủ (một thư viện thường không có tới 60 ông chủ đối kháng)." },
+                { q: "5. The team has many talented ______________. (play)", opts: ["players", "player", "playground", "playing"], ans: "players", exp: "1. Dịch: 'Đội tuyển sở hữu rất nhiều cầu thủ tài năng.'\n2. Phân tích ngữ pháp: Đứng sau từ chỉ số lượng nhiều 'many' cần một danh từ đếm được số nhiều. Gốc động từ là 'play' (chơi).\n3. Tại sao chọn players? Danh từ 'players' chỉ những cầu thủ/người chơi thể thao ở dạng số nhiều, kết hợp tính từ tài năng 'talented players' hoàn toàn chính xác.\n4. Loại B vì là danh từ số ít." },
+                { q: "6. We sat on the beach ______________ a spectacular sunset. (watch)", opts: ["watched", "watching", "to watch", "watches"], ans: "watching", exp: "1. Dịch: 'Chúng tớ ngồi trên bãi biển ngắm nhìn cảnh tượng hoàng hôn tuyệt đẹp.'\n2. Phân tích ngữ pháp: Trong câu đã có sẵn động từ chính chia thì quá khứ là 'sat' (ngồi). Hành động sau diễn tả một hành động xảy ra song song đồng thời cùng lúc, hoặc rút gọn mệnh đề trạng ngữ có cùng chủ ngữ 'We' -> Ta biến đổi động từ hành động thành dạng danh động từ đuôi V-ing.\n3. Tại sao chọn watching? 'watching' đóng vai trò phân từ hiện tại rút gọn, bổ sung ý nghĩa ngồi làm gì trên biển.\n4. Loại các phương án chia thì khác vì một câu không thể có hai động từ chính đứng độc lập không liên từ nối." },
+                { q: "7. English is an ______________ and important subject. (interest)", opts: ["interest", "interested", "interesting", "interestingly"], ans: "interesting", exp: "1. Dịch: 'Tiếng Anh là một môn học thú vị và quan trọng.'\n2. Phân tích ngữ pháp tương tự câu 8 Ex 6: Đứng trước và bổ nghĩa cho danh từ chỉ vật bộ môn 'subject' cần một tính từ mang tính chủ động miêu tả đặc điểm bản chất của môn học đó.\n3. Tại sao chọn interesting? Tính từ đuôi -ing 'interesting' nói lên đặc tính cuốn hút của môn tiếng Anh.\n4. Loại B vì 'interested' chỉ cảm xúc con người." },
+                { q: "8. They learn to play a ______________ instrument. (music)", opts: ["music", "musical", "musician", "musically"], ans: "musical", exp: "1. Dịch: 'Họ học cách chơi một loại nhạc cụ.'\n2. Phân tích ngữ pháp: Đứng trước bổ nghĩa cho danh từ 'instrument' (dụng cụ/thiết bị) ta cần một tính từ tương ứng của chủ đề. Gốc từ là danh từ 'music' (âm nhạc).\n3. Tại sao chọn musical? Tính từ 'musical' kết hợp tạo thành cụm từ ghép thuật ngữ cố định 'musical instrument' nghĩa là nhạc cụ chơi âm nhạc.\n4. Loại C (nhạc sĩ - danh từ chỉ người không đứng vị trí này), loại D là trạng từ." }
+            ]
+        };
+
+        let totalQuestionsCount = 0;
+
+        // --- RENDER FUNCTIONS WITH SHUFFLE ---
+        function renderQuiz() {
+            // Render Ex 3
+            const ex3Container = document.getElementById('ex3-container');
+            quizData.ex3.forEach((item, index) => {
+                totalQuestionsCount++;
+                const shuffledOpts = shuffleArray([...item.opts]);
+                let optionsHtml = '';
+                shuffledOpts.forEach(opt => {
+                    optionsHtml += `<button type="button" class="btn-opt" onclick="checkABCD(this, '${opt}', '${item.ans}', 'ex3-${index}')">${opt}</button>`;
+                });
+
+                ex3Container.innerHTML += `
+                    <div class="card" id="card-ex3-${index}">
+                        <div class="question-text">${item.q} Chọn từ khác loại</div>
+                        <div class="options-grid">${optionsHtml}</div>
+                        <div class="explanation-box" id="exp-ex3-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Ex 4 (Gap fill text popup simulation)
+            const ex4Container = document.getElementById('ex4-container');
+            quizData.ex4.forEach((item, index) => {
+                totalQuestionsCount++;
+                const selectId = `gap-ex4-${index}`;
+                // Replace underline with a pseudo clickable gap selector box
+                const renderedQuestion = item.q.replace(/_____________/g, `
+                    <span class="gap-select" id="${selectId}" onclick="openGapPopup(this, ${index}, 'ex4')">Chọn từ...</span>
+                `);
+
+                ex4Container.innerHTML += `
+                    <div style="margin-bottom: 20px; border-bottom: 1px dashed #E2E8F0; padding-bottom: 15px;" id="card-ex4-${index}">
+                        <div class="question-text">${renderedQuestion}</div>
+                        <div class="explanation-box" id="exp-ex4-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Ex 5 (Matching with dynamic canvas/CSS graphics)
+            const ex5Container = document.getElementById('ex5-container');
+            quizData.ex5.forEach((item, index) => {
+                totalQuestionsCount++;
+                const optionsHtml = ['a','b','c','d','e'].map(letter => 
+                    `<button type="button" class="btn-opt" style="padding:5px 10px; font-size:0.9rem; border-radius:10px; box-shadow:0 3px 0 #DFE6E9;" onclick="checkABCD(this, '${letter}', '${item.ans}', 'ex5-${index}')">${letter.toUpperCase()}</button>`
+                ).join(' ');
+
+                ex5Container.innerHTML += `
+                    <div class="match-card" id="card-ex5-${index}">
+                        <div class="graphic-box">${item.icon}</div>
+                        <div style="font-weight:700; margin-bottom:8px;">${item.name}</div>
+                        <div style="display:flex; justify-content:center; gap:5px; flex-wrap:wrap;">${optionsHtml}</div>
+                        <div class="explanation-box" id="exp-ex5-${index}" style="text-align:left; font-size:0.85rem;">
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Ex 6 (ABCD Standard)
+            const ex6Container = document.getElementById('ex6-container');
+            quizData.ex6.forEach((item, index) => {
+                totalQuestionsCount++;
+                const shuffledOpts = shuffleArray([...item.opts]);
+                let optionsHtml = '';
+                shuffledOpts.forEach(opt => {
+                    optionsHtml += `<button type="button" class="btn-opt" onclick="checkABCD(this, '${opt}', '${item.ans}', 'ex6-${index}')">${opt}</button>`;
+                });
+
+                ex6Container.innerHTML += `
+                    <div class="card" id="card-ex6-${index}">
+                        <div class="question-text">${index + 1}. ${item.q}</div>
+                        <div class="options-grid">${optionsHtml}</div>
+                        <div class="explanation-box" id="exp-ex6-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Ex 7 (Gap Fill)
+            const ex7Container = document.getElementById('ex7-container');
+            quizData.ex7.forEach((item, index) => {
+                totalQuestionsCount++;
+                const selectId = `gap-ex7-${index}`;
+                const renderedQuestion = item.q.replace(/______________/g, `
+                    <span class="gap-select" id="${selectId}" onclick="openGapPopup(this, ${index}, 'ex7')">Chọn từ...</span>
+                `);
+
+                ex7Container.innerHTML += `
+                    <div style="margin-bottom: 20px; border-bottom: 1px dashed #E2E8F0; padding-bottom: 15px;" id="card-ex7-${index}">
+                        <div class="question-text">${renderedQuestion}</div>
+                        <div class="explanation-box" id="exp-ex7-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Render Ex 8 (Circle correct bracket options converted to gamified selection buttons)
+            const ex8Container = document.getElementById('ex8-container');
+            quizData.ex8.forEach((item, index) => {
+                totalQuestionsCount++;
+                // Clean the text to show text without brackets for question styling
+                const cleanQuestionText = item.q.replace(/\((.*?)\)/g, "_______");
+                let optionsHtml = '';
+                item.opts.forEach(opt => {
+                    optionsHtml += `<button type="button" class="btn-opt" onclick="checkABCD(this, '${opt}', '${item.ans}', 'ex8-${index}')">${opt}</button>`;
+                });
+
+                sidebarHtml = `
+                    <div class="card" id="card-ex8-${index}">
+                        <div class="question-text">${index + 1}. ${cleanQuestionText} <span style="font-size:0.9rem; color:var(--primary); font-weight:500;">(Đề bài: ${item.q})</span></div>
+                        <div class="options-grid" style="grid-template-columns: 1fr 1fr;">${optionsHtml}</div>
+                        <div class="explanation-box" id="exp-ex8-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+                ex8Container.innerHTML += sidebarHtml;
+            });
+
+            // Render Ex 9 (Verb form converted to intelligent choice)
+            renderTransformativeExercises(quizData.ex9, 'ex9', document.getElementById('ex9-container'));
+            // Render Ex 10
+            renderTransformativeExercises(quizData.ex10, 'ex10', document.getElementById('ex10-container'));
+            // Render Ex 11
+            renderTransformativeExercises(quizData.ex11, 'ex11', document.getElementById('ex11-container'));
+            // Render Ex 12
+            renderTransformativeExercises(quizData.ex12, 'ex12', document.getElementById('ex12-container'));
+            // Render Ex 13
+            renderTransformativeExercises(quizData.ex13, 'ex13', document.getElementById('ex13-container'));
+        }
+
+        function renderTransformativeExercises(dataset, prefix, hostElement) {
+            dataset.forEach((item, index) => {
+                totalQuestionsCount++;
+                const shuffledOpts = shuffleArray([...item.opts]);
+                let optionsHtml = '';
+                shuffledOpts.forEach(opt => {
+                    optionsHtml += `<button type="button" class="btn-opt" onclick="checkABCD(this, '${opt}', '${item.ans}', '${prefix}-${index}')">${opt}</button>`;
+                });
+
+                hostElement.innerHTML += `
+                    <div class="card" id="card-${prefix}-${index}">
+                        <div class="question-text">${index + 1}. ${item.q}</div>
+                        <div class="options-grid">${optionsHtml}</div>
+                        <div class="explanation-box" id="exp-${prefix}-${index}">
+                            <h4>💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</h4>
+                            <div style="white-space: pre-line;">${item.exp}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- INTERACTIVE SYSTEM CONTROLLERS ---
+        let userScoresMap = {};
+
+        function checkABCD(buttonElement, chosenOpt, correctAns, questionUniqueId) {
+            const cardElement = document.getElementById(`card-${questionUniqueId}`) || buttonElement.parentElement.parentElement;
+            const parentContainer = buttonElement.parentElement;
+            const allOptionButtons = parentContainer.querySelectorAll('.btn-opt');
+            
+            // Disable all buttons in this question row
+            allOptionButtons.forEach(btn => btn.classList.add('disabled'));
+
+            const expBox = document.getElementById(`exp-${questionUniqueId}`);
+
+            if (chosenOpt === correctAns) {
+                buttonElement.classList.add('correct');
+                playSound('correct');
+                spawnConfetti();
+                userScoresMap[questionUniqueId] = 1;
+            } else {
+                buttonElement.classList.add('wrong');
+                cardElement.classList.add('shake');
+                playSound('wrong');
+                setTimeout(() => cardElement.classList.remove('shake'), 500);
+                userScoresMap[questionUniqueId] = 0;
+
+                // Highlight the correct answer for the student to see
+                allOptionButtons.forEach(btn => {
+                    if(btn.innerText === correctAns || btn.innerText.toLowerCase() === correctAns.toLowerCase()){
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            // Always display the comprehensive breakdown immediately
+            if(expBox) expBox.style.display = 'block';
+        }
+
+        // Simulated Popup for Gap Fill entries
+        function openGapPopup(spanElement, index, exercisePrefix) {
+            if(spanElement.classList.contains('correct') || spanElement.classList.contains('wrong')) return;
+            
+            const dataset = quizData[prefixSelector(exercisePrefix)];
+            const item = dataset[index];
+            
+            // Create a temporary modern drop menu or prompt for gamified interaction
+            let selectMenu = document.createElement('select');
+            selectMenu.style.fontFamily = "'Quicksand', sans-serif";
+            selectMenu.style.padding = "5px";
+            selectMenu.style.borderRadius = "10px";
+            
+            let defaultOpt = document.createElement('option');
+            defaultOpt.text = "Chọn từ...";
+            selectMenu.add(defaultOpt);
+            
+            // Deduplicate options list
+            const standardOptions = shuffleArray([...item.opts]);
+            standardOptions.forEach(opt => {
+                let optionNode = document.createElement('option');
+                optionNode.value = opt;
+                optionNode.text = opt;
+                selectMenu.add(optionNode);
+            });
+
+            spanElement.parentElement.insertBefore(selectMenu, spanElement.nextSibling);
+            spanElement.style.display = 'none';
+
+            selectMenu.focus();
+            selectMenu.onchange = function() {
+                const finalChoice = selectMenu.value;
+                if(finalChoice === "Chọn từ...") return;
+
+                spanElement.innerText = finalChoice;
+                spanElement.style.display = 'inline-block';
+                selectMenu.remove();
+
+                const expBox = document.getElementById(`exp-${exercisePrefix}-${index}`);
+                if (finalChoice.toLowerCase() === item.ans.toLowerCase()) {
+                    spanElement.className = "gap-select correct";
+                    playSound('correct');
+                    spawnConfetti();
+                    userScoresMap[`${exercisePrefix}-${index}`] = 1;
+                } else {
+                    spanElement.className = "gap-select wrong";
+                    playSound('wrong');
+                    userScoresMap[`${exercisePrefix}-${index}`] = 0;
+                    
+                    // Show correct answer near it
+                    const tipSpan = document.createElement('span');
+                    tipSpan.style.color = 'var(--correct)';
+                    tipSpan.style.fontWeight = '900';
+                    tipSpan.style.marginLeft = '5px';
+                    tipSpan.innerText = `(${item.ans})`;
+                    spanElement.parentElement.insertBefore(tipSpan, spanElement.nextSibling);
+                }
+                if(expBox) expBox.style.display = 'block';
+            };
+        }
+
+        function prefixSelector(prefix) {
+            return prefix === 'ex4' ? 'ex4' : 'ex7';
+        }
+
+        // --- SUBMIT & SUMMARY MECHANICS ---
+        function gradeQuiz() {
+            let correctTotal = 0;
+            // Aggregate map entries
+            for (let key in userScoresMap) {
+                if (userScoresMap[key] === 1) correctTotal++;
+            }
+
+            const percentage = (correctTotal / totalQuestionsCount) * 100;
+            let finalCommentText = "";
+
+            if (percentage < 50) {
+                finalCommentText = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ❤️";
+            } else if (percentage >= 60 && percentage <= 80) {
+                finalCommentText = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ✨";
+            } else {
+                finalCommentText = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha! 🎉🏆";
+            }
+
+            document.getElementById('modalScoreText').innerText = `${correctTotal} / ${totalQuestionsCount}`;
+            document.getElementById('modalCommentText').innerText = finalCommentText;
+            document.getElementById('scoreModal').classList.add('active');
+            
+            if(percentage >= 80) spawnConfetti();
+        }
+
+        function closeModal() {
+            document.getElementById('scoreModal').classList.remove('active');
+            // Reset page view scroll seamlessly
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Execute rendering sequence setup on window load
+        window.onload = function() {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
